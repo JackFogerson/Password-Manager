@@ -28,7 +28,7 @@ public class LoginScreen
 	
 	public void launchLoginFrame()
 	{
-		loginFrame = new JFrame("PasswordManager - Login");
+		loginFrame = new JFrame("JackPass - Login");
 		loginFrame.setLayout(new GridLayout(3, 1));
 		
 		JLabel userLabel = new JLabel("Username");
