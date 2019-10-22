@@ -1,5 +1,6 @@
 package com.PasswordManager;
 
-public class Password {
+public class Password 
+{
 
 }
