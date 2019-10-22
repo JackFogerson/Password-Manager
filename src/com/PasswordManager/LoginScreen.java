@@ -3,6 +3,13 @@ package com.PasswordManager;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,10 +27,67 @@ public class LoginScreen
 	public LoginScreen()
 	{
 		loginFrame = null;
-		users = new ArrayList<User>();
 		myUser = null;
 		loggedIn = false;
+		pullUsers();
 		launchLoginFrame();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void pullUsers()
+	{
+		users = new ArrayList<User>();
+		
+		try
+		{
+			File probeFile = new File("Users.jpss");
+			probeFile.createNewFile();
+			FileInputStream fis = new FileInputStream(probeFile);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			users = (ArrayList<User>) ois.readObject();
+			
+			ois.close();
+			fis.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found.");
+		}
+		catch(IOException e)
+		{
+			System.out.println("Error initalizing stream.");
+		}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeUsers()
+	{
+		try
+		{
+			File probeFile = new File("Users.jpss");
+			probeFile.createNewFile(); // Creates if it doesn't exist.
+			FileOutputStream fos = new FileOutputStream(probeFile);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(users);
+			
+			oos.close();
+			fos.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			System.out.println("File not found.");
+		}
+		catch(IOException e)
+		{
+			System.out.println("Error initalizing stream.");
+		}
+		
+		loggedIn = true;
 	}
 	
 	public void launchLoginFrame()
@@ -68,7 +132,7 @@ public class LoginScreen
 		{
 			users.add(newUser);
 			myUser = newUser;
-			loggedIn = true;
+			writeUsers();
 			JOptionPane.showMessageDialog(null, "Created Account");
 		}
 	}
@@ -78,11 +142,15 @@ public class LoginScreen
 		User newUser = new User(u, p);
 		if(users.contains(newUser))
 		{
-			if(users.get(users.indexOf(newUser)).getPassword().equals(p));
+			if(users.get(users.indexOf(newUser)).getPassword().equals(p))
 			{
 				myUser = newUser;
 				loggedIn = true;
-				JOptionPane.showMessageDialog(null, "Logged In");
+				JOptionPane.showMessageDialog(null, "Logged In ");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Incorrect Username or Password.");
 			}
 		}
 		else

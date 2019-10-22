@@ -2,16 +2,10 @@ package com.PasswordManager;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
@@ -33,7 +27,7 @@ public class PasswordManager
 	
 	public void buildFrame()
 	{
-		mainFrame = new JFrame("JackPass");
+		mainFrame = new JFrame("JackPass - " + myUser.getUsername());
 		mainFrame.setLayout(new BorderLayout());
 		
 		JMenuBar topBar = new JMenuBar();

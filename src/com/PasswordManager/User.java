@@ -1,7 +1,10 @@
 package com.PasswordManager;
 
-public class User implements Comparable<User>
+import java.io.Serializable;
+
+public class User implements Comparable<User> , Serializable
 {
+	private static final long serialVersionUID = 1L;
 	String myUsername;
 	String myPassword;
 	
