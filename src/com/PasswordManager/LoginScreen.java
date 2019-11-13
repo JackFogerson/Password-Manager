@@ -140,7 +140,7 @@ public class LoginScreen
 		JLabel passLabel = new JLabel("Password");
 		JTextField usernameBox = new JTextField();
 		JTextField passwordBox = new JTextField();
-		JButton createAccountButton = new JButton("Create");
+		JButton createAccountButton = new JButton("Create a New Account");
 		JButton logInButton = new JButton("Log In");
 		
 		// Add all the components in order for the positioning in the frame.
