@@ -49,11 +49,14 @@ public class PasswordManager
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
-		JButton newAccountButton = new JButton("New Account");
-		JButton removeAccountButton = new JButton("Remove Account");
+		JButton newAccountButton = new JButton("Add New Password");
+		JButton removeAccountButton = new JButton("Remove Password");
 		JButton logoutButton = new JButton("Log Out");
 		AccountInfoPanel accountInfo = new AccountInfoPanel();
 		AccountsPane accounts = new AccountsPane(myUser, accountInfo);
+		
+		logoutButton.addActionListener(event -> logOut());
+
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
