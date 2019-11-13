@@ -132,7 +132,7 @@ public class LoginScreen
 	private void launchLoginFrame()
 	{
 		// Make the frame, and then make it a GridLayout.
-		loginFrame = new JFrame("JackPass - Login");
+		loginFrame = new JFrame("JackPass - Login or Create New Account");
 		loginFrame.setLayout(new GridLayout(3, 1));
 		
 		// Make all parts of the frame.
@@ -179,7 +179,7 @@ public class LoginScreen
 		if(users.contains(newUser))
 		{
 			// Display that this option is taken.
-			JOptionPane.showMessageDialog(null, "That username is taken.");
+			JOptionPane.showMessageDialog(null, "Sorry, that username is taken. Please try again.");
 		}
 		// If not then we are good.
 		else
