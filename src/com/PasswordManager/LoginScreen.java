@@ -190,7 +190,7 @@ public class LoginScreen
 			
 			// Write this new user to file and display that the account was created.
 			writeUsers();
-			JOptionPane.showMessageDialog(null, "Created Account");
+			JOptionPane.showMessageDialog(null, "Welcome to JackPass, " + myUser.getUsername() + "! We hope you enjoy.");
 		}
 	}
 	
@@ -214,18 +214,19 @@ public class LoginScreen
 				// Make the new account the active user and state we are logged in.
 				myUser = newUser;
 				loggedIn = true;
-				JOptionPane.showMessageDialog(null, "Logged In ");
+				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() +". Enjoy JackPass!");
 			}
 			// No password = no entry.
 			else
 			{
-				JOptionPane.showMessageDialog(null, "Incorrect Username or Password.");
+				//if correct username, wrong password
+				JOptionPane.showMessageDialog(null, "Sorry, that is the incorrect Password. Please try again!");
 			}
 		}
 		// No account with this information exists.
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Incorrect Username or Password.");
+			JOptionPane.showMessageDialog(null, "We do not have an account with that Username. Please create an account or change the Username");
 		}
 	}
 	
@@ -241,9 +242,9 @@ public class LoginScreen
 		{
 			// TODO For some reason, the rest of this method doesn't run unless this is here so fix this lol
 			// EsSeNtIaLlY dO nOtHiNg
-			// Changed for less spamming in terminal
-			// still works, no spam
-			//System.out.println("");
+			// Changed to blank for less spamming in terminal
+			// look for fix
+			System.out.println("");
 		}
 		
 		// Get rid of the log in frame when we are logged in.
