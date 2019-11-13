@@ -241,7 +241,9 @@ public class LoginScreen
 		{
 			// TODO For some reason, the rest of this method doesn't run unless this is here so fix this lol
 			// EsSeNtIaLlY dO nOtHiNg
-			System.out.println("Not Logged In");
+			// Changed for less spamming in terminal
+			// still works, no spam
+			//System.out.println("");
 		}
 		
 		// Get rid of the log in frame when we are logged in.
