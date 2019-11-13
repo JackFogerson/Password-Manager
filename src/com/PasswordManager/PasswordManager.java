@@ -55,6 +55,7 @@ public class PasswordManager
 		AccountInfoPanel accountInfo = new AccountInfoPanel();
 		AccountsPane accounts = new AccountsPane(myUser, accountInfo);
 		
+		// event listener so that logout button works
 		logoutButton.addActionListener(event -> logOut());
 
 		
@@ -107,6 +108,7 @@ public class PasswordManager
 	 */
 	public int logOut()
 	{
+		JOptionPane.showMessageDialog(null, "Thank you for using JackPass! Hope to see you soon.");
 		mainFrame.dispose();
 		return 1;
 	}
