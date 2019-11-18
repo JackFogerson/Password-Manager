@@ -19,10 +19,11 @@ import javax.swing.JTextField;
 
 /**
  * @title	LoginScreen
- * @author 	Nick Fulton, Jack Fogerson, Jack Gisel
+ * @author 	Nick Fulton, Jack Fogerson, Jack Gisel 
  * @desc	We want this class to handle everything related to logging into the actual PasswordManager. This means
  * 			all account storage for jackpass accounts.
  */
+
 public class LoginScreen 
 {
 	// Create some of those needed variables.
@@ -33,7 +34,7 @@ public class LoginScreen
 	
 	/**
 	 * @title	LoginScreen constructor
-	 * @desc	Basic stuff.
+	 * @desc	Defaults variables as null/false, gets user database, and launches login app
 	 */
 	public LoginScreen()
 	{
@@ -52,7 +53,7 @@ public class LoginScreen
 	@SuppressWarnings("unchecked")
 	private void pullUsers()
 	{
-		// In case there are no preexisting users, make a new arraylist.
+		// In case there are no preexisting users, make a new ArrayList.
 		users = new ArrayList<User>();
 		
 		try
@@ -66,21 +67,25 @@ public class LoginScreen
 			FileInputStream fis = new FileInputStream(probeFile);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
-			// Pull the arraylist from file.
+			// Pull the ArrayList from file.
 			users = (ArrayList<User>) ois.readObject();
 			
 			// Close the streams.
 			ois.close();
 			fis.close();
 		}
+		//block of code to catch errors
+		//gives error message if the file doesn't exist
 		catch(FileNotFoundException e)
 		{
 			System.out.println("File not found.");
 		}
+		//gives error message if I/O operation fails or is interrupted
 		catch(IOException e)
 		{
 			System.out.println("Error initalizing stream.");
 		}
+		//prints stack trace if the class called is not found
 		catch(ClassNotFoundException e)
 		{
 			e.printStackTrace();
@@ -99,23 +104,27 @@ public class LoginScreen
 			// First make the file.
 			File probeFile = new File("Users.jpss");
 			// Then create the file on the system if it doesn't exist, but it should by this point.
+			//failsafe file creation to prevent errors
 			probeFile.createNewFile();
 			
 			// Create the streams.
 			FileOutputStream fos = new FileOutputStream(probeFile);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			// Write the arraylist back to the file.
+			// Write the ArrayList back to the file.
 			oos.writeObject(users);
 			
 			// Close the streams.
 			oos.close();
 			fos.close();
 		}
+		//block of code to catch errors
+		//gives error message if the file doesn't exist
 		catch(FileNotFoundException e)
 		{
 			System.out.println("File not found.");
 		}
+		//gives error message if I/O operation fails or is interrupted
 		catch(IOException e)
 		{
 			System.out.println("Error initalizing stream.");
@@ -131,16 +140,16 @@ public class LoginScreen
 	 */
 	private void launchLoginFrame()
 	{
-		// Make the frame, and then make it a GridLayout.
-		loginFrame = new JFrame("JackPass - Login");
+		// Make the JFrame, and then make it a GridLayout.
+		loginFrame = new JFrame("JackPass - Login or Create New Account");
 		loginFrame.setLayout(new GridLayout(3, 1));
 		
-		// Make all parts of the frame.
+		//Create all the parts necessary for the loginFrame
 		JLabel userLabel = new JLabel("Username");
 		JLabel passLabel = new JLabel("Password");
 		JTextField usernameBox = new JTextField();
 		JTextField passwordBox = new JTextField();
-		JButton createAccountButton = new JButton("Create");
+		JButton createAccountButton = new JButton("Create a New Account");
 		JButton logInButton = new JButton("Log In");
 		
 		// Add all the components in order for the positioning in the frame.
@@ -152,6 +161,7 @@ public class LoginScreen
 		loginFrame.add(logInButton);
 		
 		// Make an action listener for both create account and log in, which will be dealt with in other methods.
+		//Gets user input and sends that text to those methods
 		createAccountButton.addActionListener(event -> createAccount(usernameBox.getText(), passwordBox.getText()));
 		logInButton.addActionListener(event -> logIn(usernameBox.getText(), passwordBox.getText()));
 		
@@ -159,6 +169,7 @@ public class LoginScreen
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginFrame.setSize(200, 100);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		//Sets frame to center of user's screen
 		loginFrame.setLocation(d.width/2-loginFrame.getSize().width/2, d.height/2-loginFrame.getSize().height/2);
 		loginFrame.pack();
 		loginFrame.setVisible(true);
@@ -168,30 +179,34 @@ public class LoginScreen
 	 * @title	createAccount Method
 	 * @param 	u - The username variable.
 	 * @param	p - The password variable.
-	 * @desc	Creates an account with the given variables if one doesn't already exist with supplied username.
+	 * @desc	Creates an account with the given variables if given username does not already exist.
 	 */
 	private void createAccount(String u, String p)
 	{
 		// Create a new user using the username and password provided.
 		User newUser = new User(u, p);
 		
-		// If the arraylist already has a user with that username.
+		//Method if the ArrayList already has a user with that username.
 		if(users.contains(newUser))
 		{
 			// Display that this option is taken.
-			JOptionPane.showMessageDialog(null, "That username is taken.");
+			JOptionPane.showMessageDialog(null, "Sorry, that username is taken. Please try again.");
 		}
-		// If not then we are good.
+		//else, continue creating account
 		else
 		{
-			// Add the new user to the arraylist and set it as the active user.
+			// Add the new user to the ArrayList and set it as the active user.
 			users.add(newUser);
 			myUser = newUser;
 			
-			// Write this new user to file and display that the account was created.
+			// Write this new user to file and display account creation message.
 			writeUsers();
+<<<<<<< HEAD
 			JOptionPane.showMessageDialog(null, "Created Account");
 			loggedIn();
+=======
+			JOptionPane.showMessageDialog(null, "Welcome to JackPass, " + myUser.getUsername() + "! We hope you enjoy having a secure password manager.");
+>>>>>>> e4e3287da8721696cb8fe0566aaee1d047cacc53
 		}
 	}
 	
@@ -212,27 +227,54 @@ public class LoginScreen
 			// If the passwords match.
 			if(users.get(users.indexOf(newUser)).getPassword().equals(p))
 			{
-				// Make the new account the active user and state we are logged in.
+				// Make the new account the active user and display log-in message.
 				myUser = newUser;
 				loggedIn = true;
+<<<<<<< HEAD
 				JOptionPane.showMessageDialog(null, "Logged In ");
 				loggedIn();
+=======
+				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() +". Enjoy JackPass!");
+>>>>>>> e4e3287da8721696cb8fe0566aaee1d047cacc53
 			}
 			// No password = no entry.
 			else
 			{
-				JOptionPane.showMessageDialog(null, "Incorrect Username or Password.");
+				//if correct username, wrong or null password
+				JOptionPane.showMessageDialog(null, "Sorry, that is the incorrect password. Please try again!");
 			}
 		}
-		// No account with this information exists.
+		// If database doesn't contain username.
 		else
 		{
-			JOptionPane.showMessageDialog(null, "Incorrect Username or Password.");
+			JOptionPane.showMessageDialog(null, "We do not have an account with that Username. Please create an account or change the Username");
 		}
 	}
+<<<<<<< HEAD
 
 	// Move to Manager once logged in
 	private void loggedIn() {
+=======
+	
+	/**
+	 * @title	getUser Method
+	 * @desc	Returns the logged in user once there is one.
+	 * @return	User
+	 */
+	public User getUser()
+	{
+		// While there is not an account logged in, essentially do nothing.
+		while(loggedIn == false)
+		{
+			// TODO For some reason, the rest of this method doesn't run unless this is here so fix this lol
+			// EsSeNtIaLlY dO nOtHiNg
+			// Changed to blank for less spamming in terminal
+			// look for fix
+			System.out.println("");
+		}
+		
+		// Get rid of the log in frame when we are logged in.
+>>>>>>> e4e3287da8721696cb8fe0566aaee1d047cacc53
 		loginFrame.dispose();
 		PasswordManager pm = new PasswordManager(myUser);
 		pm.launch();

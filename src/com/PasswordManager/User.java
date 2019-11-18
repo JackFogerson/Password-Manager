@@ -1,6 +1,7 @@
 package com.PasswordManager;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * @title	User Class
@@ -14,6 +15,7 @@ public class User implements Comparable<User> , Serializable
 	private static final long serialVersionUID = 1L;
 	String myUsername;
 	String myPassword;
+	ArrayList<Account> accounts;
 	
 	/**
 	 * @title	User Constructor
@@ -22,9 +24,30 @@ public class User implements Comparable<User> , Serializable
 	 */
 	public User(String username, String password)
 	{
-		// Set those variables.
+		// Set User variables.
 		myUsername = username;
 		myPassword = password;
+		accounts = new ArrayList<Account>();
+	}
+	
+	/**
+	 * @title	addAccount Method
+	 * @desc	Adds the given account to the user's list of accounts.
+	 * @param	account - The account to be added to the list of accounts.
+	 */
+	public void addAccount(Account a)
+	{
+		a = a.encrypt();
+		accounts.add(a);
+	}
+	
+	/**
+	 * @title	getAccounts Method
+	 * @desc	Returns the arraylist of all accounts associated with the user.
+	 */
+	public ArrayList<Account> getAccounts()
+	{
+		return accounts;
 	}
 
 	/**
@@ -80,3 +103,4 @@ public class User implements Comparable<User> , Serializable
 		return myUsername;
 	}
 }
+
