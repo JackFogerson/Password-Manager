@@ -24,7 +24,7 @@ public class User implements Comparable<User> , Serializable
 	 */
 	public User(String username, String password)
 	{
-		// Set those variables.
+		// Set User variables.
 		myUsername = username;
 		myPassword = password;
 		accounts = new ArrayList<Account>();
@@ -103,3 +103,4 @@ public class User implements Comparable<User> , Serializable
 		return myUsername;
 	}
 }
+
