@@ -191,6 +191,7 @@ public class LoginScreen
 			// Write this new user to file and display that the account was created.
 			writeUsers();
 			JOptionPane.showMessageDialog(null, "Created Account");
+			loggedIn();
 		}
 	}
 	
@@ -215,6 +216,7 @@ public class LoginScreen
 				myUser = newUser;
 				loggedIn = true;
 				JOptionPane.showMessageDialog(null, "Logged In ");
+				loggedIn();
 			}
 			// No password = no entry.
 			else
@@ -228,26 +230,11 @@ public class LoginScreen
 			JOptionPane.showMessageDialog(null, "Incorrect Username or Password.");
 		}
 	}
-	
-	/**
-	 * @title	getUser Method
-	 * @desc	Returns the logged in user once there is one.
-	 * @return	User
-	 */
-	public User getUser()
-	{
-		// While there is not an account logged in, essentially do nothing.
-		while(loggedIn == false)
-		{
-			// TODO For some reason, the rest of this method doesn't run unless this is here so fix this lol
-			// EsSeNtIaLlY dO nOtHiNg
-			System.out.println("Not Logged In");
-		}
-		
-		// Get rid of the log in frame when we are logged in.
+
+	// Move to Manager once logged in
+	private void loggedIn() {
 		loginFrame.dispose();
-		
-		// Return the logged in user.
-		return myUser;
+		PasswordManager pm = new PasswordManager(myUser);
+		pm.launch();
 	}
 }
