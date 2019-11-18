@@ -144,7 +144,7 @@ public class LoginScreen
 		loginFrame = new JFrame("JackPass - Login or Create New Account");
 		loginFrame.setLayout(new GridLayout(3, 1));
 		
-		// Make all parts of the frame.
+		//Create all the parts necessary for the loginFrame
 		JLabel userLabel = new JLabel("Username");
 		JLabel passLabel = new JLabel("Password");
 		JTextField usernameBox = new JTextField();
@@ -161,6 +161,7 @@ public class LoginScreen
 		loginFrame.add(logInButton);
 		
 		// Make an action listener for both create account and log in, which will be dealt with in other methods.
+		//Gets user input and sends that text to those methods
 		createAccountButton.addActionListener(event -> createAccount(usernameBox.getText(), passwordBox.getText()));
 		logInButton.addActionListener(event -> logIn(usernameBox.getText(), passwordBox.getText()));
 		
@@ -168,6 +169,7 @@ public class LoginScreen
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginFrame.setSize(200, 100);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		//Sets frame to center of user's screen
 		loginFrame.setLocation(d.width/2-loginFrame.getSize().width/2, d.height/2-loginFrame.getSize().height/2);
 		loginFrame.pack();
 		loginFrame.setVisible(true);
@@ -177,29 +179,29 @@ public class LoginScreen
 	 * @title	createAccount Method
 	 * @param 	u - The username variable.
 	 * @param	p - The password variable.
-	 * @desc	Creates an account with the given variables if one doesn't already exist with supplied username.
+	 * @desc	Creates an account with the given variables if given username does not already exist.
 	 */
 	private void createAccount(String u, String p)
 	{
 		// Create a new user using the username and password provided.
 		User newUser = new User(u, p);
 		
-		// If the arraylist already has a user with that username.
+		//Method if the ArrayList already has a user with that username.
 		if(users.contains(newUser))
 		{
 			// Display that this option is taken.
 			JOptionPane.showMessageDialog(null, "Sorry, that username is taken. Please try again.");
 		}
-		// If not then we are good.
+		//else, continue creating account
 		else
 		{
-			// Add the new user to the arraylist and set it as the active user.
+			// Add the new user to the ArrayList and set it as the active user.
 			users.add(newUser);
 			myUser = newUser;
 			
-			// Write this new user to file and display that the account was created.
+			// Write this new user to file and display account creation message.
 			writeUsers();
-			JOptionPane.showMessageDialog(null, "Welcome to JackPass, " + myUser.getUsername() + "! We hope you enjoy.");
+			JOptionPane.showMessageDialog(null, "Welcome to JackPass, " + myUser.getUsername() + "! We hope you enjoy having a secure password manager.");
 		}
 	}
 	
@@ -220,7 +222,7 @@ public class LoginScreen
 			// If the passwords match.
 			if(users.get(users.indexOf(newUser)).getPassword().equals(p))
 			{
-				// Make the new account the active user and state we are logged in.
+				// Make the new account the active user and display log-in message.
 				myUser = newUser;
 				loggedIn = true;
 				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() +". Enjoy JackPass!");
@@ -228,11 +230,11 @@ public class LoginScreen
 			// No password = no entry.
 			else
 			{
-				//if correct username, wrong password
-				JOptionPane.showMessageDialog(null, "Sorry, that is the incorrect Password. Please try again!");
+				//if correct username, wrong or null password
+				JOptionPane.showMessageDialog(null, "Sorry, that is the incorrect password. Please try again!");
 			}
 		}
-		// No account with this information exists.
+		// If database doesn't contain username.
 		else
 		{
 			JOptionPane.showMessageDialog(null, "We do not have an account with that Username. Please create an account or change the Username");
