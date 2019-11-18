@@ -201,12 +201,8 @@ public class LoginScreen
 			
 			// Write this new user to file and display account creation message.
 			writeUsers();
-<<<<<<< HEAD
-			JOptionPane.showMessageDialog(null, "Created Account");
-			loggedIn();
-=======
 			JOptionPane.showMessageDialog(null, "Welcome to JackPass, " + myUser.getUsername() + "! We hope you enjoy having a secure password manager.");
->>>>>>> e4e3287da8721696cb8fe0566aaee1d047cacc53
+			loggedIn();
 		}
 	}
 	
@@ -230,12 +226,10 @@ public class LoginScreen
 				// Make the new account the active user and display log-in message.
 				myUser = newUser;
 				loggedIn = true;
-<<<<<<< HEAD
-				JOptionPane.showMessageDialog(null, "Logged In ");
 				loggedIn();
-=======
+
 				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() +". Enjoy JackPass!");
->>>>>>> e4e3287da8721696cb8fe0566aaee1d047cacc53
+				loggedIn();
 			}
 			// No password = no entry.
 			else
@@ -250,31 +244,9 @@ public class LoginScreen
 			JOptionPane.showMessageDialog(null, "We do not have an account with that Username. Please create an account or change the Username");
 		}
 	}
-<<<<<<< HEAD
 
 	// Move to Manager once logged in
 	private void loggedIn() {
-=======
-	
-	/**
-	 * @title	getUser Method
-	 * @desc	Returns the logged in user once there is one.
-	 * @return	User
-	 */
-	public User getUser()
-	{
-		// While there is not an account logged in, essentially do nothing.
-		while(loggedIn == false)
-		{
-			// TODO For some reason, the rest of this method doesn't run unless this is here so fix this lol
-			// EsSeNtIaLlY dO nOtHiNg
-			// Changed to blank for less spamming in terminal
-			// look for fix
-			System.out.println("");
-		}
-		
-		// Get rid of the log in frame when we are logged in.
->>>>>>> e4e3287da8721696cb8fe0566aaee1d047cacc53
 		loginFrame.dispose();
 		PasswordManager pm = new PasswordManager(myUser);
 		pm.launch();
