@@ -8,6 +8,8 @@ public class AccountsPane extends JScrollPane
 	AccountInfoPanel infoPanel;
 	User myUser;
 	
+	//Constructor for AccountsPane
+	//Sets up scrollable panel with accounts and passwords
 	public AccountsPane(User u, AccountInfoPanel a)
 	{
 		myUser = u;
@@ -15,8 +17,10 @@ public class AccountsPane extends JScrollPane
 		populate();
 	}
 
+	//Method to populate the AccountsPane with accounts
 	public void populate()
 	{
+		//Get accounts for the user from database
 		for(Account a : myUser.getAccounts())
 		{
 			AccountsPaneItem api = new AccountsPaneItem(a);
@@ -27,6 +31,7 @@ public class AccountsPane extends JScrollPane
 	
 	public void changeInfo(Account a)
 	{
-		// TODO
+		// TODO Changing from one account panel to the other
+		// Switching from one account info to the next
 	}
 }
