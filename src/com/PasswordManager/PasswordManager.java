@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * @title	PasswordManager Class
@@ -55,8 +56,13 @@ public class PasswordManager
 		AccountInfoPanel accountInfo = new AccountInfoPanel();
 		AccountsPane accounts = new AccountsPane(myUser, accountInfo);
 		
-		// event listener so that logout button works
+		// event listener so logout button works
 		logoutButton.addActionListener(event -> logOut());
+		
+		//TODO: add actionlisteners to add/remove passwords from account
+		//newAccountButton.addActionListener(event -> );
+		//removeAccountButton.addActionListener(event -> );
+
 
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -96,6 +102,7 @@ public class PasswordManager
 		mainFrame.setSize(new Dimension(650, 500));
 		mainFrame.setResizable(false);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		//Set JFrame to center of screen
 		mainFrame.setLocation(d.width/2-mainFrame.getSize().width/2, d.height/2-mainFrame.getSize().height/2);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
