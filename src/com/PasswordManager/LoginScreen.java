@@ -19,10 +19,11 @@ import javax.swing.JTextField;
 
 /**
  * @title	LoginScreen
- * @author 	Nick Fulton, Jack Fogerson, Jack Gisel
+ * @author 	Nick Fulton, Jack Fogerson, Jack Gisel 
  * @desc	We want this class to handle everything related to logging into the actual PasswordManager. This means
  * 			all account storage for jackpass accounts.
  */
+
 public class LoginScreen 
 {
 	// Create some of those needed variables.
@@ -33,7 +34,7 @@ public class LoginScreen
 	
 	/**
 	 * @title	LoginScreen constructor
-	 * @desc	Basic stuff.
+	 * @desc	Defaults variables as null/false, gets user database, and launches login app
 	 */
 	public LoginScreen()
 	{
@@ -52,7 +53,7 @@ public class LoginScreen
 	@SuppressWarnings("unchecked")
 	private void pullUsers()
 	{
-		// In case there are no preexisting users, make a new arraylist.
+		// In case there are no preexisting users, make a new ArrayList.
 		users = new ArrayList<User>();
 		
 		try
@@ -66,21 +67,25 @@ public class LoginScreen
 			FileInputStream fis = new FileInputStream(probeFile);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
-			// Pull the arraylist from file.
+			// Pull the ArrayList from file.
 			users = (ArrayList<User>) ois.readObject();
 			
 			// Close the streams.
 			ois.close();
 			fis.close();
 		}
+		//block of code to catch errors
+		//gives error message if the file doesn't exist
 		catch(FileNotFoundException e)
 		{
 			System.out.println("File not found.");
 		}
+		//gives error message if I/O operation fails or is interrupted
 		catch(IOException e)
 		{
 			System.out.println("Error initalizing stream.");
 		}
+		//prints stack trace if the class called is not found
 		catch(ClassNotFoundException e)
 		{
 			e.printStackTrace();
@@ -99,23 +104,27 @@ public class LoginScreen
 			// First make the file.
 			File probeFile = new File("Users.jpss");
 			// Then create the file on the system if it doesn't exist, but it should by this point.
+			//failsafe file creation to prevent errors
 			probeFile.createNewFile();
 			
 			// Create the streams.
 			FileOutputStream fos = new FileOutputStream(probeFile);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			// Write the arraylist back to the file.
+			// Write the ArrayList back to the file.
 			oos.writeObject(users);
 			
 			// Close the streams.
 			oos.close();
 			fos.close();
 		}
+		//block of code to catch errors
+		//gives error message if the file doesn't exist
 		catch(FileNotFoundException e)
 		{
 			System.out.println("File not found.");
 		}
+		//gives error message if I/O operation fails or is interrupted
 		catch(IOException e)
 		{
 			System.out.println("Error initalizing stream.");
@@ -131,7 +140,7 @@ public class LoginScreen
 	 */
 	private void launchLoginFrame()
 	{
-		// Make the frame, and then make it a GridLayout.
+		// Make the JFrame, and then make it a GridLayout.
 		loginFrame = new JFrame("JackPass - Login or Create New Account");
 		loginFrame.setLayout(new GridLayout(3, 1));
 		
