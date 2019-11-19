@@ -3,7 +3,7 @@ package com.PasswordManager;
 /**
  * @title	Driver Class
  * @author	Nick Fulton, Jack Fogerson, Jack Gisel
- * @desc	This will handle everything needed to run JackPass.
+ * @desc	Main method used to launch JackPass login screen
  */
 
 public class Driver 
@@ -12,5 +12,4 @@ public class Driver
 	{
 		LoginScreen ls = new LoginScreen();
 	}
-	
 }
