@@ -226,7 +226,6 @@ public class LoginScreen
 				// Make the new account the active user and display log-in message.
 				myUser = newUser;
 				loggedIn = true;
-				loggedIn();
 
 				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() +". Enjoy JackPass!");
 				loggedIn();
