@@ -6,8 +6,7 @@ import java.util.ArrayList;
 /**
  * @title	User Class
  * @author	Nick Fulton, Jack Fogerson, Jack Gisel
- * @desc	This object is meant to handle all information related to the users of JackPass. This includes all
- * 			usernames and passwords for the accounts.
+ * @desc	Class to handle all JackPass user info
  */
 public class User implements Comparable<User> , Serializable
 {
@@ -63,8 +62,7 @@ public class User implements Comparable<User> , Serializable
 	
 	/**
 	 * @title	equals Method
-	 * @desc	Calls the modified compareTo and if that returns 0, then return true. If not then return
-	 * 			false.
+	 * @desc	Calls the modified compareTo and if that returns 0, return true. If not return false.
 	 */
 	@Override
 	public boolean equals(Object u)
@@ -86,7 +84,7 @@ public class User implements Comparable<User> , Serializable
 	
 	/**
 	 * @title	getPassword
-	 * @return	Password
+	 * @return	User's password
 	 */
 	public String getPassword()
 	{
@@ -95,7 +93,7 @@ public class User implements Comparable<User> , Serializable
 	
 	/**
 	 * @title	toString
-	 * @return	myUsername
+	 * @return	User's username
 	 */
 	@Override
 	public String toString()
@@ -103,4 +101,3 @@ public class User implements Comparable<User> , Serializable
 		return myUsername;
 	}
 }
-
