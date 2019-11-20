@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+
 /**
  * @title	PasswordManager Class
  * @author	Nick Fulton, Jack Fogerson, Jack Gisel
@@ -21,6 +22,7 @@ public class PasswordManager
 	// Create those variables.
 	JFrame mainFrame;
 	User myUser;
+	JFrame accountFrame;
 	
 	/**
 	 * @title	PasswordManager Constructor
@@ -110,16 +112,15 @@ public class PasswordManager
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setVisible(true);
 	}
-	
+
 	/** 
-	 * @title	logOut Method
-	 * @return	1 when logged out.
-	 * @desc	Basically closes the frame.
+	 * @title	newAccount Method
+	 * @return	void
+	 * @desc	gets a new frame to gather info.
 	 */
-	
 	public void newAccount() {
-		JFrame loginFrame = new JFrame("Add New Account");
-		loginFrame.setLayout(new GridLayout(4, 1));
+		accountFrame = new JFrame("Add New Account");
+		accountFrame.setLayout(new GridLayout(4, 1));
 		
 		//Create all the parts necessary for the loginFrame
 		JLabel urlLabel = new JLabel("URL");
@@ -132,28 +133,40 @@ public class PasswordManager
 		JButton cancelButton = new JButton("Go Back");
 		
 		// Add all the components in order for the positioning in the frame.
-		loginFrame.add(urlLabel);
-		loginFrame.add(urlBox);
-		loginFrame.add(userLabel);
-		loginFrame.add(usernameBox);
-		loginFrame.add(passLabel);
-		loginFrame.add(passwordBox);
-		loginFrame.add(createAccountButton);
-		loginFrame.add(cancelButton);
+		accountFrame.add(urlLabel);
+		accountFrame.add(urlBox);
+		accountFrame.add(userLabel);
+		accountFrame.add(usernameBox);
+		accountFrame.add(passLabel);
+		accountFrame.add(passwordBox);
+		accountFrame.add(cancelButton);
+		accountFrame.add(createAccountButton);
 		
-		//createAccountButton.addActionListener(event -> createAccount(usernameBox.getText(), passwordBox.getText()));
-		//logInButton.addActionListener(event -> logIn(usernameBox.getText(), passwordBox.getText()));
+		createAccountButton.addActionListener(event -> addAccount(urlBox.getText(), usernameBox.getText(), passwordBox.getText()));
+		cancelButton.addActionListener(event -> accountFrame.dispose());
 		
 		// Handle the rest of the frame.
-		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		loginFrame.setSize(200, 100);
+		accountFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		accountFrame.setSize(200, 100);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		//Sets frame to center of user's screen
-		loginFrame.setLocation(d.width/2-loginFrame.getSize().width/2, d.height/2-loginFrame.getSize().height/2);
-		loginFrame.pack();
-		loginFrame.setVisible(true);
+		accountFrame.setLocation(d.width/2-accountFrame.getSize().width/2, d.height/2-accountFrame.getSize().height/2);
+		accountFrame.pack();
+		accountFrame.setVisible(true);
 	}
 	
+	public void addAccount(String url, String u, String p) {
+		Account a = new Account(url,u,p);
+		myUser.addAccount(a);
+		JOptionPane.showMessageDialog(null, "Account Created");
+		accountFrame.dispose();
+	}
+
+	/** 
+	 * @title	logOut Method
+	 * @return	1 when logged out.
+	 * @desc	Basically closes the frame.
+	 */
 	public int logOut()
 	{
 		JOptionPane.showMessageDialog(null, "Thank you for using JackPass! Hope to see you soon.");
