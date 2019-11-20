@@ -3,15 +3,18 @@ package com.PasswordManager;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * @title	PasswordManager Class
  * @author	Nick Fulton, Jack Fogerson, Jack Gisel
- *
+ * @desc	Class to load PM and run it 
  */
 public class PasswordManager 
 {
@@ -60,7 +63,7 @@ public class PasswordManager
 		logoutButton.addActionListener(event -> logOut());
 		
 		//TODO: add actionlisteners to add/remove passwords from account
-		//newAccountButton.addActionListener(event -> );
+		newAccountButton.addActionListener(event -> newAccount());
 		//removeAccountButton.addActionListener(event -> );
 
 
@@ -113,6 +116,44 @@ public class PasswordManager
 	 * @return	1 when logged out.
 	 * @desc	Basically closes the frame.
 	 */
+	
+	public void newAccount() {
+		JFrame loginFrame = new JFrame("Add New Account");
+		loginFrame.setLayout(new GridLayout(4, 1));
+		
+		//Create all the parts necessary for the loginFrame
+		JLabel urlLabel = new JLabel("URL");
+		JLabel userLabel = new JLabel("Username");
+		JLabel passLabel = new JLabel("Password");
+		JTextField urlBox = new JTextField();
+		JTextField usernameBox = new JTextField();
+		JTextField passwordBox = new JTextField();
+		JButton createAccountButton = new JButton("Create a New Account");
+		JButton cancelButton = new JButton("Go Back");
+		
+		// Add all the components in order for the positioning in the frame.
+		loginFrame.add(urlLabel);
+		loginFrame.add(urlBox);
+		loginFrame.add(userLabel);
+		loginFrame.add(usernameBox);
+		loginFrame.add(passLabel);
+		loginFrame.add(passwordBox);
+		loginFrame.add(createAccountButton);
+		loginFrame.add(cancelButton);
+		
+		//createAccountButton.addActionListener(event -> createAccount(usernameBox.getText(), passwordBox.getText()));
+		//logInButton.addActionListener(event -> logIn(usernameBox.getText(), passwordBox.getText()));
+		
+		// Handle the rest of the frame.
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginFrame.setSize(200, 100);
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		//Sets frame to center of user's screen
+		loginFrame.setLocation(d.width/2-loginFrame.getSize().width/2, d.height/2-loginFrame.getSize().height/2);
+		loginFrame.pack();
+		loginFrame.setVisible(true);
+	}
+	
 	public int logOut()
 	{
 		JOptionPane.showMessageDialog(null, "Thank you for using JackPass! Hope to see you soon.");
