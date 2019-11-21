@@ -10,6 +10,6 @@ public class Driver
 {
 	public static void main(String[] args)
 	{
-		LoginScreen ls = new LoginScreen();
+		new LoginScreen();
 	}
 }

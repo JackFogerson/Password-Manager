@@ -59,7 +59,7 @@ public class LoginScreen
 		try
 		{
 			// First make the file.
-			File probeFile = new File("Users.jpss");
+			File probeFile = new File("data/Users.jpss");
 			// And create the file if it doesn't already exist.
 			probeFile.createNewFile();
 			
@@ -102,7 +102,7 @@ public class LoginScreen
 		try
 		{
 			// First make the file.
-			File probeFile = new File("Users.jpss");
+			File probeFile = new File("data/Users.jpss");
 			// Then create the file on the system if it doesn't exist, but it should by this point.
 			//failsafe file creation to prevent errors
 			probeFile.createNewFile();
