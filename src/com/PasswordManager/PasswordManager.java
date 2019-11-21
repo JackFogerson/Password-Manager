@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 
@@ -23,6 +25,8 @@ public class PasswordManager
 	JFrame mainFrame;
 	User myUser;
 	JFrame accountFrame;
+	JScrollPane accountsScrollPane;
+	JPanel accountList;
 	
 	/**
 	 * @title	PasswordManager Constructor
@@ -59,7 +63,10 @@ public class PasswordManager
 		JButton removeAccountButton = new JButton("Remove Password");
 		JButton logoutButton = new JButton("Log Out");
 		AccountInfoPanel accountInfo = new AccountInfoPanel();
-		AccountsPane accounts = new AccountsPane(myUser, accountInfo);
+		accountsScrollPane = new JScrollPane();
+		accountsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		populateAccounts();
 		
 		// event listener so logout button works
 		logoutButton.addActionListener(event -> logOut());
@@ -67,8 +74,6 @@ public class PasswordManager
 		//TODO: add actionlisteners to add/remove passwords from account
 		newAccountButton.addActionListener(event -> newAccount());
 		//removeAccountButton.addActionListener(event -> );
-
-
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -93,7 +98,7 @@ public class PasswordManager
 		c.weightx = 0;
 		c.gridx = 0;
 		c.gridy = 1;
-		mainFrame.add(accounts, c);
+		mainFrame.add(accountsScrollPane, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 420;
@@ -155,11 +160,34 @@ public class PasswordManager
 		accountFrame.setVisible(true);
 	}
 	
+	public void populateAccounts()
+	{
+		JPanel accounts = new JPanel(); 
+		accounts.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		
+		for(Account a: myUser.getAccounts())
+		{
+			accounts.add(new AccountsPaneItem(a), c);
+			c.gridy++;
+		}
+
+		accountsScrollPane.setViewportView(accounts);
+	}
+	
 	public void addAccount(String url, String u, String p) {
 		Account a = new Account(url,u,p);
 		myUser.addAccount(a);
 		JOptionPane.showMessageDialog(null, "Account Created");
 		accountFrame.dispose();
+		populateAccounts();
+		myUser.writeAccounts();
 	}
 
 	/** 

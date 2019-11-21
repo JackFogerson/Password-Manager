@@ -1,5 +1,7 @@
 package com.PasswordManager;
 
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 
 public class AccountsPaneItem extends JButton
@@ -11,5 +13,12 @@ public class AccountsPaneItem extends JButton
 	public AccountsPaneItem(Account a)
 	{
 		myAccount = a;
+		buildButton();
+	}
+	
+	private void buildButton()
+	{
+		this.setText(myAccount.getURL());
+		this.setPreferredSize(new Dimension(200, 60));
 	}
 }
