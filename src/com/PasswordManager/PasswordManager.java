@@ -49,7 +49,7 @@ public class PasswordManager
 	
 	/**
 	 * @title	buildFrame Method
-	 * @desc	Self explanitory, just builds the frame and sets everything up.
+	 * @desc	Builds the frame and sets everything up.
 	 */
 	public void buildFrame()
 	{
@@ -66,13 +66,17 @@ public class PasswordManager
 		accountsScrollPane = new JScrollPane();
 		accountsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
+		//add accounts to PM
 		populateAccounts();
 		
 		// event listener so logout button works
 		logoutButton.addActionListener(event -> logOut());
 		
-		//TODO: add actionlisteners to add/remove passwords from account
+		//Launches new JFrame to create new saved account
 		newAccountButton.addActionListener(event -> newAccount());
+		
+		//TODO: add actionlistener to remove passwords from account
+		//Either by clicking on button to remove or typing in the url
 		//removeAccountButton.addActionListener(event -> );
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -121,7 +125,7 @@ public class PasswordManager
 	/** 
 	 * @title	newAccount Method
 	 * @return	void
-	 * @desc	gets a new frame to gather info.
+	 * @desc	gets a new frame to gather info about new account.
 	 */
 	public void newAccount() {
 		accountFrame = new JFrame("Add New Account");
@@ -147,7 +151,9 @@ public class PasswordManager
 		accountFrame.add(cancelButton);
 		accountFrame.add(createAccountButton);
 		
+		//Create Account button listener adds new account to User
 		createAccountButton.addActionListener(event -> addAccount(urlBox.getText(), usernameBox.getText(), passwordBox.getText()));
+		//Goes back to previous page
 		cancelButton.addActionListener(event -> accountFrame.dispose());
 		
 		// Handle the rest of the frame.
@@ -159,7 +165,8 @@ public class PasswordManager
 		accountFrame.pack();
 		accountFrame.setVisible(true);
 	}
-	
+		
+	//adds accounts to side panel for viewing
 	public void populateAccounts()
 	{
 		JPanel accounts = new JPanel(); 
@@ -174,11 +181,49 @@ public class PasswordManager
 		
 		for(Account a: myUser.getAccounts())
 		{
-			accounts.add(new AccountsPaneItem(a), c);
+			AccountsPaneItem api = new AccountsPaneItem(a);
+			api.addActionListener(event -> showAccount(api));
+			accounts.add(api, c);
 			c.gridy++;
 		}
 
 		accountsScrollPane.setViewportView(accounts);
+	}
+	
+	public void showAccount(AccountsPaneItem a) {
+		JFrame account = new JFrame();
+		account.setLayout(new GridLayout(4, 1));
+		
+		JLabel urlLabel = new JLabel("URL");
+		JLabel userLabel = new JLabel("Username");
+		JLabel passLabel = new JLabel("Password");
+		String url = a.getAccount().getURL();
+		JLabel urlBox = new JLabel(url);
+		String user = a.getAccount().getUsername();
+		JLabel userBox = new JLabel(user);
+		String pass = a.getAccount().getPassword();
+		JLabel passBox = new JLabel(pass);
+		JButton cancelButton = new JButton("Go Back");
+		
+		// Add all the components in order for the positioning in the frame.
+		account.add(urlLabel);
+		account.add(urlBox);
+		account.add(userLabel);
+		account.add(userBox);
+		account.add(passLabel);
+		account.add(passBox);
+		account.add(cancelButton);
+		
+		cancelButton.addActionListener(event -> account.dispose());
+		
+		// Handle the rest of the frame.
+		account.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		account.setSize(200, 100);
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		//Sets frame to center of user's screen
+		account.setLocation(d.width/2-account.getSize().width/2, d.height/2-account.getSize().height/2);
+		account.pack();
+		account.setVisible(true);
 	}
 	
 	public void addAccount(String url, String u, String p) {
