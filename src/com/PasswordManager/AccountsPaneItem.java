@@ -21,4 +21,9 @@ public class AccountsPaneItem extends JButton
 		this.setText(myAccount.getURL());
 		this.setPreferredSize(new Dimension(200, 60));
 	}
+	
+	public Account getAccount()
+	{
+		return myAccount;
+	}
 }
