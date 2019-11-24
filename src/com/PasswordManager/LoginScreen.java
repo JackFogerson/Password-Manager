@@ -20,8 +20,8 @@ import javax.swing.JTextField;
 /**
  * @title	LoginScreen
  * @author 	Nick Fulton, Jack Fogerson, Jack Gisel 
- * @desc	We want this class to handle everything related to logging into the actual PasswordManager. This means
- * 			all account storage for jackpass accounts.
+ * @desc	Class handles everything related to logging into PasswordManager. Checks Account Storage to 
+ * 			ensure JackPass is secure.
  */
 
 public class LoginScreen 
@@ -53,7 +53,7 @@ public class LoginScreen
 	@SuppressWarnings("unchecked")
 	private void pullUsers()
 	{
-		// In case there are no preexisting users, make a new ArrayList.
+		// In case there are no pre-existing users, make a new ArrayList.
 		users = new ArrayList<User>();
 		
 		try
@@ -141,7 +141,7 @@ public class LoginScreen
 	private void launchLoginFrame()
 	{
 		// Make the JFrame, and then make it a GridLayout.
-		loginFrame = new JFrame("JackPass - Login or Create New Account");
+		loginFrame = new JFrame("JackPass - Login or Create Account");
 		loginFrame.setLayout(new GridLayout(3, 1));
 		
 		//Create all the parts necessary for the loginFrame
