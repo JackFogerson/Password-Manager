@@ -23,6 +23,7 @@ public class Account implements Serializable
 		this.password = p;
 	}
 	
+	// Not sure where name is used. Could website variable be used instead of new name variable?
 	public void setName(String n)
 	{
 		this.name = n;
