@@ -9,9 +9,6 @@ import java.io.Serializable;
  */
 public class Account implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	//Variables for all accounts
 	String username;
@@ -24,6 +21,11 @@ public class Account implements Serializable
 		this.website = url;
 		this.username = u;
 		this.password = p;
+	}
+	
+	public void setName(String n)
+	{
+		this.name = n;
 	}
 	
 	//Get methods for account
@@ -43,15 +45,11 @@ public class Account implements Serializable
 	{
 		return this.name;
 	}
-	
-	public void setName(String n)
-	{
-		this.name = n;
-	}
-	
+
 	public Account encrypt()
 	{
 		// TODO Make something that makes the accounts secure.
+		// Need to get someone to work on this
 		return this;
 	}
 }
