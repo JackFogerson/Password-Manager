@@ -182,6 +182,7 @@ public class PasswordManager
 		for(Account a: myUser.getAccounts())
 		{
 			AccountsPaneItem api = new AccountsPaneItem(a);
+			//Shows Accounts when button clicked
 			api.addActionListener(event -> showAccount(api));
 			accounts.add(api, c);
 			c.gridy++;
@@ -190,6 +191,7 @@ public class PasswordManager
 		accountsScrollPane.setViewportView(accounts);
 	}
 	
+	//shows account info when button is clicked
 	public void showAccount(AccountsPaneItem a) {
 		JFrame account = new JFrame();
 		account.setLayout(new GridLayout(4, 1));
@@ -214,6 +216,7 @@ public class PasswordManager
 		account.add(passBox);
 		account.add(cancelButton);
 		
+		//Goes back to previous page
 		cancelButton.addActionListener(event -> account.dispose());
 		
 		// Handle the rest of the frame.
@@ -226,6 +229,7 @@ public class PasswordManager
 		account.setVisible(true);
 	}
 	
+	//adds accounts to side frame
 	public void addAccount(String url, String u, String p) {
 		Account a = new Account(url,u,p);
 		myUser.addAccount(a);
