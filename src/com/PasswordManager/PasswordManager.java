@@ -5,6 +5,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -169,6 +171,7 @@ public class PasswordManager
 	//adds accounts to side panel for viewing
 	public void populateAccounts()
 	{
+		ButtonGroup bg = new ButtonGroup();
 		JPanel accounts = new JPanel(); 
 		accounts.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -185,6 +188,7 @@ public class PasswordManager
 			//Shows Accounts when button clicked
 			api.addActionListener(event -> showAccount(api));
 			accounts.add(api, c);
+			bg.add(api);
 			c.gridy++;
 		}
 

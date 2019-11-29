@@ -3,8 +3,9 @@ package com.PasswordManager;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
+import javax.swing.JToggleButton;
 
-public class AccountsPaneItem extends JButton
+public class AccountsPaneItem extends JToggleButton
 {
 	private static final long serialVersionUID = 1L;
 	Account myAccount;
