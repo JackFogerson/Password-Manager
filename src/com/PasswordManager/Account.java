@@ -15,15 +15,17 @@ public class Account implements Serializable
 	String password;
 	String website;
 	String name;
+	String additionalDetails;
 	
 	//Account constructor
-	public Account(String url, String u, String p) {
+	public Account(String url, String u, String p, String additional) 
+	{
 		this.website = url;
 		this.username = u;
 		this.password = p;
+		this.additionalDetails = additional;
 	}
 	
-	// Not sure where name is used. Could website variable be used instead of new name variable?
 	public void setName(String n)
 	{
 		this.name = n;
@@ -45,6 +47,11 @@ public class Account implements Serializable
 	public String getName()
 	{
 		return this.name;
+	}
+	
+	public String getAdditionalDetails()
+	{
+		return this.additionalDetails;
 	}
 
 	public Account encrypt()

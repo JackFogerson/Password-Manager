@@ -1,8 +1,6 @@
 package com.PasswordManager;
 
 import java.awt.Dimension;
-
-import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
 public class AccountsPaneItem extends JToggleButton

@@ -29,6 +29,8 @@ public class PasswordManager
 	JFrame accountFrame;
 	JScrollPane accountsScrollPane;
 	JPanel accountList;
+	ButtonGroup bg;
+	AccountInfoPanel accountInfo;
 	
 	/**
 	 * @title	PasswordManager Constructor
@@ -64,7 +66,7 @@ public class PasswordManager
 		JButton newAccountButton = new JButton("Add New Password");
 		JButton removeAccountButton = new JButton("Remove Password");
 		JButton logoutButton = new JButton("Log Out");
-		AccountInfoPanel accountInfo = new AccountInfoPanel();
+		accountInfo = new AccountInfoPanel();
 		accountsScrollPane = new JScrollPane();
 		accountsScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
@@ -84,18 +86,19 @@ public class PasswordManager
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
+		c.ipady = 50;
 		mainFrame.add(newAccountButton, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.5;
 		c.gridx = 1;
 		c.gridy = 0;
+		c.ipady = 50;
 		mainFrame.add(removeAccountButton, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.5;
 		c.gridx = 2;
 		c.gridy = 0;
+		c.ipady = 50;
 		mainFrame.add(logoutButton, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -154,7 +157,7 @@ public class PasswordManager
 		accountFrame.add(createAccountButton);
 		
 		//Create Account button listener adds new account to User
-		createAccountButton.addActionListener(event -> addAccount(urlBox.getText(), usernameBox.getText(), passwordBox.getText()));
+		createAccountButton.addActionListener(event -> addAccount(urlBox.getText(), usernameBox.getText(), passwordBox.getText(), null));
 		//Goes back to previous page
 		cancelButton.addActionListener(event -> accountFrame.dispose());
 		
@@ -171,7 +174,7 @@ public class PasswordManager
 	//adds accounts to side panel for viewing
 	public void populateAccounts()
 	{
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		JPanel accounts = new JPanel(); 
 		accounts.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -185,8 +188,7 @@ public class PasswordManager
 		for(Account a: myUser.getAccounts())
 		{
 			AccountsPaneItem api = new AccountsPaneItem(a);
-			//Shows Accounts when button clicked
-			api.addActionListener(event -> showAccount(api));
+			api.addActionListener(event -> showAccount(a));
 			accounts.add(api, c);
 			bg.add(api);
 			c.gridy++;
@@ -195,47 +197,18 @@ public class PasswordManager
 		accountsScrollPane.setViewportView(accounts);
 	}
 	
-	//shows account info when button is clicked
-	public void showAccount(AccountsPaneItem a) {
-		JFrame account = new JFrame();
-		account.setLayout(new GridLayout(4, 1));
-		
-		JLabel urlLabel = new JLabel("URL");
-		JLabel userLabel = new JLabel("Username");
-		JLabel passLabel = new JLabel("Password");
-		String url = a.getAccount().getURL();
-		JLabel urlBox = new JLabel(url);
-		String user = a.getAccount().getUsername();
-		JLabel userBox = new JLabel(user);
-		String pass = a.getAccount().getPassword();
-		JLabel passBox = new JLabel(pass);
-		JButton cancelButton = new JButton("Go Back");
-		
-		// Add all the components in order for the positioning in the frame.
-		account.add(urlLabel);
-		account.add(urlBox);
-		account.add(userLabel);
-		account.add(userBox);
-		account.add(passLabel);
-		account.add(passBox);
-		account.add(cancelButton);
-		
-		//Goes back to previous page
-		cancelButton.addActionListener(event -> account.dispose());
-		
-		// Handle the rest of the frame.
-		account.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		account.setSize(200, 100);
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		//Sets frame to center of user's screen
-		account.setLocation(d.width/2-account.getSize().width/2, d.height/2-account.getSize().height/2);
-		account.pack();
-		account.setVisible(true);
+	public void showAccount(Account a)
+	{
+		accountInfo.setName(a.getName());
+		accountInfo.setUserName(a.getUsername());
+		accountInfo.setPassword(a.getPassword());
+		accountInfo.setURL(a.getURL());
+		accountInfo.setAdditionalDetails(a.getAdditionalDetails());
 	}
 	
 	//adds accounts to side frame
-	public void addAccount(String url, String u, String p) {
-		Account a = new Account(url,u,p);
+	public void addAccount(String url, String u, String p, String ad) {
+		Account a = new Account(url,u,p, ad);
 		myUser.addAccount(a);
 		JOptionPane.showMessageDialog(null, "Account Created");
 		accountFrame.dispose();
