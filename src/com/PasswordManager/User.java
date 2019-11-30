@@ -119,8 +119,12 @@ public class User implements Comparable<User> , Serializable
 	 */
 	public void addAccount(Account a)
 	{
-		a = a.encrypt();
 		accounts.add(a);
+	}
+
+	public void removeAccount(Account a)
+	{
+		accounts.remove(a);
 	}
 	
 	/**

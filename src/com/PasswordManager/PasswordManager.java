@@ -1,19 +1,7 @@
 package com.PasswordManager;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
 
 /**
@@ -31,6 +19,7 @@ public class PasswordManager
 	JPanel accountList;
 	ButtonGroup bg;
 	AccountInfoPanel accountInfo;
+	Account selected;
 	
 	/**
 	 * @title	PasswordManager Constructor
@@ -78,10 +67,9 @@ public class PasswordManager
 		
 		//Launches new JFrame to create new saved account
 		newAccountButton.addActionListener(event -> newAccount());
-		
-		//TODO: add actionlistener to remove passwords from account
-		//Either by clicking on button to remove or typing in the url
-		//removeAccountButton.addActionListener(event -> );
+
+		// Remove selected account
+		removeAccountButton.addActionListener(event -> removeAccount(selected));
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -188,7 +176,14 @@ public class PasswordManager
 		for(Account a: myUser.getAccounts())
 		{
 			AccountsPaneItem api = new AccountsPaneItem(a);
-			api.addActionListener(event -> showAccount(a));
+			api.addActionListener(event -> {
+				selected = a;
+				try {
+					showAccount(a);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
 			accounts.add(api, c);
 			bg.add(api);
 			c.gridy++;
@@ -197,8 +192,7 @@ public class PasswordManager
 		accountsScrollPane.setViewportView(accounts);
 	}
 	
-	public void showAccount(Account a)
-	{
+	public void showAccount(Account a) throws Exception {
 		accountInfo.setName(a.getName());
 		accountInfo.setUserName(a.getUsername());
 		accountInfo.setPassword(a.getPassword());
@@ -212,6 +206,12 @@ public class PasswordManager
 		myUser.addAccount(a);
 		JOptionPane.showMessageDialog(null, "Account Created");
 		accountFrame.dispose();
+		populateAccounts();
+		myUser.writeAccounts();
+	}
+
+	public void removeAccount(Account toBeRemoved) {
+		myUser.removeAccount(toBeRemoved);
 		populateAccounts();
 		myUser.writeAccounts();
 	}

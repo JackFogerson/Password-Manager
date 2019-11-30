@@ -1,10 +1,7 @@
 package com.PasswordManager;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 //TODO: Add functionality to the class
 public class AccountInfoPanel extends JPanel
@@ -30,8 +27,7 @@ public class AccountInfoPanel extends JPanel
 		buildPanel();
 	}
 	
-	public AccountInfoPanel(Account a)
-	{
+	public AccountInfoPanel(Account a) throws Exception {
 		myAccount = a;
 		myAccountName = a.getName();
 		myUserName = a.getUsername();

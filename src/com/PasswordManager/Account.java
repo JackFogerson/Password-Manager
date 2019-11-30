@@ -16,13 +16,19 @@ public class Account implements Serializable
 	String website;
 	String name;
 	String additionalDetails;
+	String key = "jack";
 	
 	//Account constructor
 	public Account(String url, String u, String p, String additional) 
 	{
 		this.website = url;
 		this.username = u;
-		this.password = p;
+		Encryptor enc = new Encryptor();
+		try {
+			this.password = enc.encrypt(p, key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.additionalDetails = additional;
 	}
 	
@@ -40,8 +46,9 @@ public class Account implements Serializable
 		return this.username;
 	}
 	
-	public String getPassword() {
-		return this.password;
+	public String getPassword() throws Exception {
+		Encryptor enc = new Encryptor();
+		return enc.decrypt(this.password, key);
 	}
 	
 	public String getName()
@@ -52,12 +59,5 @@ public class Account implements Serializable
 	public String getAdditionalDetails()
 	{
 		return this.additionalDetails;
-	}
-
-	public Account encrypt()
-	{
-		// TODO Make something that makes the accounts secure.
-		// Need to get someone to work on this
-		return this;
 	}
 }
