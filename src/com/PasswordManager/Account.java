@@ -1,6 +1,7 @@
 package com.PasswordManager;
 
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * @title	Account
@@ -16,7 +17,7 @@ public class Account implements Serializable
 	String website;
 	String name;
 	String additionalDetails;
-	String key = "jack";
+	String key = getSaltString();
 	
 	//Account constructor
 	public Account(String url, String u, String p, String additional) 
@@ -63,5 +64,17 @@ public class Account implements Serializable
 	public String getAdditionalDetails()
 	{
 		return this.additionalDetails;
+	}
+
+	protected String getSaltString() {
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		StringBuilder salt = new StringBuilder();
+		Random rnd = new Random();
+		while (salt.length() < 18) { // length of the random string.
+			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+			salt.append(SALTCHARS.charAt(index));
+		}
+		String saltStr = salt.toString();
+		return saltStr;
 	}
 }

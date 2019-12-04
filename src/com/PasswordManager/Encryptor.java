@@ -1,47 +1,22 @@
 package com.PasswordManager;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 public class Encryptor {
     public Encryptor() {
     }
 
-    public String encrypt(String strClearText,String strKey) throws Exception{
-        String strData="";
-
-
-        try {
-            SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes(),"Blowfish");
-            Cipher cipher=Cipher.getInstance("Blowfish");
-            cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
-            byte[] encrypted=cipher.doFinal(strClearText.getBytes());
-            strData=new String(encrypted);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception(e);
-        }
-
-        return strData;
+    public String encrypt(String strToBeEncrypted, String key) {
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(key);
+        String myEncryptedText = textEncryptor.encrypt(strToBeEncrypted);
+        return myEncryptedText;
     }
 
-    public static String decrypt(String strEncrypted,String strKey) throws Exception{
-        String strData="";
-
-        try {
-            SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes(),"Blowfish");
-            Cipher cipher=Cipher.getInstance("Blowfish");
-            cipher.init(Cipher.DECRYPT_MODE, skeyspec);
-            byte[] decrypted=cipher.doFinal(strEncrypted.getBytes("utf-8"));
-            strData=new String(decrypted);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception(e);
-        }
-
-        return strData;
+    public String decrypt(String strToBeDecrypted, String key) {
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(key);
+        String password = textEncryptor.decrypt(strToBeDecrypted);
+        return password;
     }
-
 }
