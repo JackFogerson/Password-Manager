@@ -24,9 +24,12 @@ public class Account implements Serializable
 		this.website = url;
 		this.username = u;
 		Encryptor enc = new Encryptor();
-		try {
+		try 
+		{
 			this.password = enc.encrypt(p, key);
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		}
 		this.additionalDetails = additional;
@@ -46,7 +49,8 @@ public class Account implements Serializable
 		return this.username;
 	}
 	
-	public String getPassword() throws Exception {
+	public String getPassword() throws Exception 
+	{
 		Encryptor enc = new Encryptor();
 		return enc.decrypt(this.password, key);
 	}

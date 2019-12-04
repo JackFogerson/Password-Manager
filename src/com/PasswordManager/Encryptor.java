@@ -7,8 +7,9 @@ public class Encryptor {
     public Encryptor() {
     }
 
-    public static String encrypt(String strClearText,String strKey) throws Exception{
+    public String encrypt(String strClearText,String strKey) throws Exception{
         String strData="";
+
 
         try {
             SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes(),"Blowfish");
@@ -32,7 +33,7 @@ public class Encryptor {
             SecretKeySpec skeyspec=new SecretKeySpec(strKey.getBytes(),"Blowfish");
             Cipher cipher=Cipher.getInstance("Blowfish");
             cipher.init(Cipher.DECRYPT_MODE, skeyspec);
-            byte[] decrypted=cipher.doFinal(strEncrypted.getBytes());
+            byte[] decrypted=cipher.doFinal(strEncrypted.getBytes("utf-8"));
             strData=new String(decrypted);
 
         } catch (Exception e) {
