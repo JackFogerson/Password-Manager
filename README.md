@@ -4,7 +4,7 @@ JackPass is a password manager tool that encrpyts your passwords and stores them
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+You can compile yourself or run the Jar!
 
 ```bash
 java -c Driver.java
