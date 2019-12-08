@@ -75,18 +75,21 @@ public class PasswordManager
 		c.gridx = 0;
 		c.gridy = 0;
 		c.ipady = 50;
+		c.weighty = 1;
 		mainFrame.add(newAccountButton, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
 		c.gridy = 0;
 		c.ipady = 50;
+		c.weighty = 1;
 		mainFrame.add(removeAccountButton, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
 		c.gridy = 0;
 		c.ipady = 50;
+		c.weighty = 1;
 		mainFrame.add(logoutButton, c);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -99,10 +102,10 @@ public class PasswordManager
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.ipady = 420;
-		c.weightx = 0;
 		c.gridwidth = 2;
 		c.gridx = 1;
 		c.gridy = 1;
+		c.weightx = 1;
 		mainFrame.add(accountInfo, c);
 		
 		// Finalize the frame.
@@ -122,30 +125,113 @@ public class PasswordManager
 	 */
 	public void newAccount() {
 		accountFrame = new JFrame("Add New Account");
-		accountFrame.setLayout(new GridLayout(4, 1));
+		accountFrame.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		
 		//Create all the parts necessary for the loginFrame
 		JLabel urlLabel = new JLabel("URL");
 		JLabel userLabel = new JLabel("Username");
 		JLabel passLabel = new JLabel("Password");
+		JLabel nameLabel = new JLabel("Site Name");
+		JLabel additionalDetailsLabel = new JLabel("Details");
+		
 		JTextField urlBox = new JTextField();
 		JTextField usernameBox = new JTextField();
 		JTextField passwordBox = new JTextField();
+		JTextField nameBox = new JTextField();
+		JTextArea detailsBox = new JTextArea(4, 10);
+		
 		JButton createAccountButton = new JButton("Create a New Account");
 		JButton cancelButton = new JButton("Go Back");
 		
 		// Add all the components in order for the positioning in the frame.
-		accountFrame.add(urlLabel);
-		accountFrame.add(urlBox);
-		accountFrame.add(userLabel);
-		accountFrame.add(usernameBox);
-		accountFrame.add(passLabel);
-		accountFrame.add(passwordBox);
-		accountFrame.add(cancelButton);
-		accountFrame.add(createAccountButton);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(urlLabel, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(urlBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(nameLabel, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 1;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(nameBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(userLabel, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 2;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(usernameBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 3;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(passLabel, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 3;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(passwordBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 4;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(additionalDetailsLabel, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 4;
+		c.gridwidth = 1;
+		c.gridheight = 4;
+		accountFrame.add(detailsBox, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 8;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(cancelButton, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 8;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		accountFrame.add(createAccountButton, c);
+
 		
 		//Create Account button listener adds new account to User
-		createAccountButton.addActionListener(event -> addAccount(urlBox.getText(), usernameBox.getText(), passwordBox.getText(), null));
+		createAccountButton.addActionListener(event -> addAccount(urlBox.getText(), nameBox.getText(), usernameBox.getText(), passwordBox.getText(), detailsBox.getText()));
 		//Goes back to previous page
 		cancelButton.addActionListener(event -> accountFrame.dispose());
 		
@@ -193,7 +279,7 @@ public class PasswordManager
 	}
 	
 	public void showAccount(Account a) throws Exception {
-		accountInfo.setName(a.getName());
+		accountInfo.setAccountName(a.getName());
 		accountInfo.setUserName(a.getUsername());
 		accountInfo.setPassword(a.getPassword());
 		accountInfo.setURL(a.getURL());
@@ -201,8 +287,8 @@ public class PasswordManager
 	}
 	
 	//adds accounts to side frame
-	public void addAccount(String url, String u, String p, String ad) {
-		Account a = new Account(url,u,p, ad);
+	public void addAccount(String url, String name, String u, String p, String ad) {
+		Account a = new Account(url, name, u, p, ad);
 		myUser.addAccount(a);
 		JOptionPane.showMessageDialog(null, "Account Created");
 		accountFrame.dispose();

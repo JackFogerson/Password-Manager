@@ -54,6 +54,11 @@ public class AccountInfoPanel extends JPanel
 			inputName.setText(a);
 			myAccountName = a;
 		}
+		else
+		{
+			inputName.setText(" ");
+			myAccountName = " ";
+		}
 	}
 	
 	public void setUserName(String u)
@@ -62,6 +67,11 @@ public class AccountInfoPanel extends JPanel
 		{
 			inputUsername.setText(u);
 			myUserName = u;
+		}
+		else
+		{
+			inputUsername.setText(" ");
+			myUserName = " ";
 		}
 	}
 	
@@ -72,6 +82,11 @@ public class AccountInfoPanel extends JPanel
 			inputPassword.setText(p);
 			myPassword = p;
 		}
+		else
+		{
+			inputPassword.setText(" ");
+			myPassword = " ";
+		}
 	}
 	
 	public void setURL(String u)
@@ -81,19 +96,30 @@ public class AccountInfoPanel extends JPanel
 			inputURL.setText(u);
 			myURL = u;
 		}
+		else
+		{
+			inputURL.setText(" ");
+			myURL = " ";
+		}
 	}
 
 	public void setAdditionalDetails(String a)
 	{
 		if(a != null)
 		{
-			inputAdditional.setText(a);
+			inputAdditional.setText("<html>" + a + "</html>");
 			myAdditionalDetails = a;
+		}
+		else
+		{
+			inputAdditional.setText(" ");
+			myAdditionalDetails = " ";
 		}
 	}
 	
 	public void buildPanel()
 	{
+		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -108,6 +134,8 @@ public class AccountInfoPanel extends JPanel
 		inputPassword = new JLabel("");
 		inputURL = new JLabel("");
 		inputAdditional = new JLabel("");
+		
+		c.insets = new Insets(0, 10, 0, 10);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
@@ -148,7 +176,9 @@ public class AccountInfoPanel extends JPanel
 		
 		c.gridx = 1;
 		c.gridy = 4;
+		c.gridheight = 5;
 		add(inputAdditional, c);
+		
 	}
 	
 	public void rebuild()

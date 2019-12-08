@@ -20,8 +20,9 @@ public class Account implements Serializable
 	String key = getSaltString();
 	
 	//Account constructor
-	public Account(String url, String u, String p, String additional) 
+	public Account(String url, String n, String u, String p, String additional) 
 	{
+		this.name = n;
 		this.website = url;
 		this.username = u;
 		Encryptor enc = new Encryptor();

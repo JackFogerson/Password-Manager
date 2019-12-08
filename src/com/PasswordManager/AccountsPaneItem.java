@@ -17,7 +17,7 @@ public class AccountsPaneItem extends JToggleButton
 	
 	private void buildButton()
 	{
-		this.setText(myAccount.getURL());
+		this.setText(myAccount.getName());
 		this.setPreferredSize(new Dimension(200, 60));
 	}
 	
