@@ -1,7 +1,13 @@
 package com.PasswordManager;
 
-import java.awt.Dimension;
-import javax.swing.JToggleButton;
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * @title	AccountsPaneItem
+ * @author 	Nick Fulton, Jack Fogerson, Jack Gisel
+ * @desc	Displays all accounts.
+ */
 
 public class AccountsPaneItem extends JToggleButton
 {

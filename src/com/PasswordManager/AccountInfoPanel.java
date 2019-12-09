@@ -3,7 +3,12 @@ package com.PasswordManager;
 import javax.swing.*;
 import java.awt.*;
 
-//TODO: Add functionality to the class
+/**
+ * @title	AccountInfoPane
+ * @author 	Nick Fulton, Jack Fogerson, Jack Gisel
+ * @desc	Displays a single accounts information
+ */
+
 public class AccountInfoPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
