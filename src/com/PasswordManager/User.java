@@ -1,5 +1,6 @@
 package com.PasswordManager;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,7 +53,7 @@ public class User implements Comparable<User> , Serializable
 			// Then create the streams.
 			FileInputStream fis = new FileInputStream(probeFile);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			
+
 			// Pull the ArrayList from file.
 			accounts = (ArrayList<Account>) ois.readObject();
 			
@@ -75,7 +76,7 @@ public class User implements Comparable<User> , Serializable
 		catch(ClassNotFoundException e)
 		{
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	public void writeAccounts()

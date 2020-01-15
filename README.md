@@ -1,6 +1,8 @@
-# JackPass - CS151 Project
+# JackPass - Password Manager App
 
-JackPass is a password manager tool that encrpyts your passwords and stores them locally. It features a stylish UI and simple exncryption.
+JackPass is a password manager tool that encrpyts your passwords and stores them locally. <br />
+Current features: Stylish UI, simple encryption. <br />
+Features to be created: Different UI design, complete functionality, fix error messages in console
 
 ## Installation
 
@@ -15,7 +17,7 @@ java Driver
 Only dependency is jaspyt for encryption.
 
 ## Contributing
-This project is complete and turned it. We will not be expanding on its features.
+This project was completed and turned in for CS 151(Object Oriented Design) at SJSU. New Features will be added to increase knowledge about Java and JFrames.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
