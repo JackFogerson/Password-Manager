@@ -88,7 +88,7 @@ public class Account implements Serializable {
 		Random rnd = new Random();
 		
 		//key builder
-		while (salt.length() < 18) { // length of the random string.
+		while (salt.length() < 18){ // length of the random string.
 			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
 			salt.append(SALTCHARS.charAt(index));
 		}

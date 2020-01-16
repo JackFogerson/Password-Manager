@@ -4,135 +4,131 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @title	AccountInfoPane
- * @author 	Nick Fulton, Jack Fogerson, Jack Gisel
- * @desc	Displays a single accounts information
+ * @title	AccountInfoPanel.java
+ * @author 	Jack Fogerson, Jack Gisel, Nick Fulton
+ * @desc	Displays a single account's information
  */
 
-public class AccountInfoPanel extends JPanel
-{
+public class AccountInfoPanel extends JPanel {
+	
 	private static final long serialVersionUID = 1L;
-	String myAccountName, myUserName, myPassword, myURL, myAdditionalDetails;
+	
+	//Initialize account variables
+	//myURL, myUserName, myPassword are mandatory variables
+	//mySiteName and myAdditionalDetails are optional variables
+	String myURL;
+	String mySiteName;
+	String myUserName;
+	String myPassword;
+	String myAdditionalDetails;
 	Account myAccount;
 	
+	//create JLabels for use in panel
 	JLabel inputName;
 	JLabel inputUsername;
 	JLabel inputPassword;
 	JLabel inputURL;
 	JLabel inputAdditional;
 	
-	public AccountInfoPanel()
-	{
-		myAccountName = "";
+	//AccountInfoPanel Constructor
+	public AccountInfoPanel(){
+		myURL = "";
+		mySiteName = "";
 		myUserName = "";
 		myPassword = "";
-		myURL = "";
 		myAdditionalDetails = "";
 		myAccount = null;
 		buildPanel();
 	}
 	
+	//AccountInfoPanel Constructor for existing account
 	public AccountInfoPanel(Account a) throws Exception {
-		myAccount = a;
-		myAccountName = a.getName();
+		myURL = a.getWebsiteURL();
+		mySiteName = a.getWebsiteName();
 		myUserName = a.getUsername();
 		myPassword = a.getPassword();
-		myURL = a.getURL();
 		myAdditionalDetails = a.getAdditionalDetails();
+		myAccount = a;
 		buildPanel();
 	}
 	
-	public AccountInfoPanel(String accountName, String username, String url, String additionalDetails)
-	{
-		myAccount = null;
-		myAccountName = accountName;
-		myUserName = username;
+	//AccountInfoPanel Constructor
+	public AccountInfoPanel(String accountName, String username, String url, String additionalDetails){
 		myURL = url;
+		mySiteName = accountName;
+		myUserName = username;
 		myAdditionalDetails = additionalDetails;
+		myAccount = null;
 		buildPanel();
 	}
 	
-	public void setAccountName(String a)
-	{
-		if(a != null)
-		{
-			inputName.setText(a);
-			myAccountName = a;
+	//Setter Methods
+	public void setURL(String u){
+		if(u != null){
+			inputURL.setText(u);
+			myURL = u;
 		}
-		else
-		{
-			inputName.setText(" ");
-			myAccountName = " ";
+		else {
+			inputURL.setText(" ");
+			myURL = " ";
 		}
 	}
 	
-	public void setUserName(String u)
-	{
-		if(u != null)
-		{
+	public void setSiteName(String a){
+		if(a != null){
+			inputName.setText(a);
+			mySiteName = a;
+		}
+		else {
+			inputName.setText(" ");
+			mySiteName = " ";
+		}
+	}
+	
+	public void setUserName(String u){
+		if(u != null){
 			inputUsername.setText(u);
 			myUserName = u;
 		}
-		else
-		{
+		else {
 			inputUsername.setText(" ");
 			myUserName = " ";
 		}
 	}
 	
-	public void setPassword(String p)
-	{
-		if(p != null)
-		{
+	public void setPassword(String p){
+		if(p != null){
 			inputPassword.setText(p);
 			myPassword = p;
 		}
-		else
-		{
+		else {
 			inputPassword.setText(" ");
 			myPassword = " ";
 		}
 	}
-	
-	public void setURL(String u)
-	{
-		if(u != null)
-		{
-			inputURL.setText(u);
-			myURL = u;
-		}
-		else
-		{
-			inputURL.setText(" ");
-			myURL = " ";
-		}
-	}
 
-	public void setAdditionalDetails(String a)
-	{
-		if(a != null)
-		{
+	public void setAdditionalDetails(String a){
+		if(a != null){
 			inputAdditional.setText("<html>" + a + "</html>");
 			myAdditionalDetails = a;
 		}
-		else
-		{
+		else {
 			inputAdditional.setText(" ");
 			myAdditionalDetails = " ";
 		}
 	}
 	
-	public void buildPanel()
-	{
+	//Build Account Panel
+	public void buildPanel(){
 		
 		setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		JLabel accountName = new JLabel("Account Name");
-		JLabel accountUsername = new JLabel("Username");
-		JLabel accountPassword = new JLabel("Password");
-		JLabel accountURL = new JLabel("Account URL");
-		JLabel accountAdditionalDetails = new JLabel("Additional Details");
+		JLabel accountURL = new JLabel("Site URL:");
+		JLabel accountName = new JLabel("Site Name:");
+		JLabel accountUsername = new JLabel("Username:");
+		JLabel accountPassword = new JLabel("Password:");
+		JLabel accountAdditionalDetails = new JLabel("Additional Details:");
 		
 		inputName = new JLabel("");
 		inputUsername = new JLabel("");
@@ -186,10 +182,9 @@ public class AccountInfoPanel extends JPanel
 		
 	}
 	
-	public void rebuild()
-	{
+	//remove and rebuild panel
+	public void rebuild(){
 		removeAll();
 		buildPanel();
 	}
-
 }
