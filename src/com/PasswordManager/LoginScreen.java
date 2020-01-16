@@ -152,19 +152,13 @@ public class LoginScreen {
 	}
 	
 	//Creates an account with the given variables if given username does not already exist
-	private void createAccount(String u, String p) {
+	private void createAccount(String u, String p) {	
 		//Create a user instance using the username and password provided.
 		User newUser = new User(u, p);
 		
 		//if no username
-		if(u == null) {
+		if(newUser.getUsername() == "" || newUser.getUsername() == null) {
 			JOptionPane.showMessageDialog(null, "Enter a username to continue");
-		}
-		
-		//Method if the ArrayList already has a user with that username.
-		else if(users.contains(newUser)){
-			// Display that this option is taken.
-			JOptionPane.showMessageDialog(null, "Sorry, that username is taken.");
 		}
 		
 		//if no password
@@ -174,15 +168,23 @@ public class LoginScreen {
 		
 		//else, continue creating account
 		else
-		{
-			// Add the new user to the ArrayList and set it as the active user.
-			users.add(newUser);
-			myUser = newUser;
+		{			
+			//Method if the ArrayList already has a user with that username.
+			if(users.contains(newUser)){
+				// Display that this option is taken.
+				JOptionPane.showMessageDialog(null, "Sorry, that username is taken.");
+			}
 			
-			// Write this new user to file and display account creation message.
-			writeUsers();
-			JOptionPane.showMessageDialog(null, "Welcome to JackPass, " + myUser.getUsername() + "! We hope you enjoy having a secure password manager.");
-			loggedIn();
+			else {
+				// Add the new user to the ArrayList and set it as the active user.
+				users.add(newUser);
+				myUser = newUser;
+			
+				// Write this new user to file and display account creation message.
+				writeUsers();
+				JOptionPane.showMessageDialog(null, "Welcome to JackPass, " + myUser.getUsername() + "! We hope you enjoy having a secure password manager.");
+				loggedIn();
+			}
 		}
 	}
 	
@@ -193,9 +195,10 @@ public class LoginScreen {
 		
 		
 		//if no username entered
-		if(u == null) {
+		if(newUser.getUsername() == "" || newUser.getUsername() == null) {
 			JOptionPane.showMessageDialog(null, "Enter a username to continue");
 		}
+		
 		
 		// If the username is in the User database
 		else if(users.contains(newUser)) {
@@ -205,7 +208,7 @@ public class LoginScreen {
 				// Make the new account the active user and display log-in message.
 				myUser = newUser;
 				loggedIn = true;
-				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() +". Enjoy JackPass!");
+				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() + ". Enjoy JackPass!");
 				loggedIn();
 			}
 			

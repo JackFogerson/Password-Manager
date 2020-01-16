@@ -1,5 +1,6 @@
 package com.PasswordManager;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -48,8 +49,15 @@ public class User implements Comparable<User> , Serializable {
 			FileInputStream fis = new FileInputStream(probeFile);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
+			Object o = ois.readObject();
+			while (o != null) {
+			   try{
+				   accounts = (ArrayList<Account>) ois.readObject();
+			   } catch(EOFException ex){
+			   }
+			}
 			// Pull the ArrayList from file.
-			accounts = (ArrayList<Account>) ois.readObject();
+			
 			
 			// Close the streams.
 			ois.close();
@@ -61,6 +69,7 @@ public class User implements Comparable<User> , Serializable {
 			System.out.println("File not found.");
 		}
 		
+
 		//gives error message if I/O operation fails or is interrupted
 		catch(IOException e){
 			e.printStackTrace();
