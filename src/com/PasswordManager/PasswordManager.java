@@ -6,12 +6,11 @@ import java.awt.*;
 
 /**
  * @title	PasswordManager Class
- * @author	Nick Fulton, Jack Fogerson, Jack Gisel
+ * @author	Jack Fogerson, Jack Gisel, Nick Fulton
  * @desc	Class to load PM and run it 
  */
-public class PasswordManager 
-{
-	// Create those variables.
+public class PasswordManager {
+	//Initialize variables.
 	JFrame mainFrame;
 	User myUser;
 	JFrame accountFrame;
@@ -21,31 +20,18 @@ public class PasswordManager
 	AccountInfoPanel accountInfo;
 	Account selected;
 	
-	/**
-	 * @title	PasswordManager Constructor
-	 * @param	user
-	 * @desc	Pretty standard, sets the user of the manager to the one given.
-	 */
-	public PasswordManager(User user)
-	{
+	//Set the user of the manager to the given
+	public PasswordManager(User user){
 		myUser = user;
 	}
 	
-	/**
-	 * @title	launch Method
-	 * @desc	Acts as the first method used to run everything.
-	 */
-	public void launch()
-	{
+	//First method - launches frame
+	public void launch(){
 		buildFrame();
 	}
 	
-	/**
-	 * @title	buildFrame Method
-	 * @desc	Builds the frame and sets everything up.
-	 */
-	public void buildFrame()
-	{
+	//Builds Frame
+	public void buildFrame(){
 		// Instantiate the frame and set the layout to a border layout.
 		mainFrame = new JFrame("JackPass - " + myUser.getUsername());
 		mainFrame.setLayout(new GridBagLayout());
@@ -118,27 +104,24 @@ public class PasswordManager
 		mainFrame.setVisible(true);
 	}
 
-	/** 
-	 * @title	newAccount Method
-	 * @return	void
-	 * @desc	gets a new frame to gather info about new account.
-	 */
+	//Gets a new frame to gather info about new account
 	public void newAccount() {
 		accountFrame = new JFrame("Add New Account");
 		accountFrame.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		//Create all the parts necessary for the loginFrame
+		//Create Labels for account creation
 		JLabel urlLabel = new JLabel("URL");
+		JLabel nameLabel = new JLabel("Site Name");
 		JLabel userLabel = new JLabel("Username");
 		JLabel passLabel = new JLabel("Password");
-		JLabel nameLabel = new JLabel("Site Name");
 		JLabel additionalDetailsLabel = new JLabel("Details");
 		
+		//Create Text Fields and Areas for account creation
 		JTextField urlBox = new JTextField();
+		JTextField nameBox = new JTextField();
 		JTextField usernameBox = new JTextField();
 		JTextField passwordBox = new JTextField();
-		JTextField nameBox = new JTextField();
 		JTextArea detailsBox = new JTextArea(4, 10);
 		
 		JButton createAccountButton = new JButton("Create a New Account");
@@ -245,9 +228,8 @@ public class PasswordManager
 		accountFrame.setVisible(true);
 	}
 		
-	//adds accounts to side panel for viewing
-	public void populateAccounts()
-	{
+	//adds accounts to side panel
+	public void populateAccounts(){
 		bg = new ButtonGroup();
 		JPanel accounts = new JPanel(); 
 		accounts.setLayout(new GridBagLayout());
@@ -259,8 +241,7 @@ public class PasswordManager
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		
-		for(Account a: myUser.getAccounts())
-		{
+		for(Account a: myUser.getAccounts()){
 			AccountsPaneItem api = new AccountsPaneItem(a);
 			api.addActionListener(event -> {
 				selected = a;
@@ -274,7 +255,6 @@ public class PasswordManager
 			bg.add(api);
 			c.gridy++;
 		}
-
 		accountsScrollPane.setViewportView(accounts);
 	}
 	
@@ -296,21 +276,19 @@ public class PasswordManager
 		myUser.writeAccounts();
 	}
 
+	//remove selected account
 	public void removeAccount(Account toBeRemoved) {
 		myUser.removeAccount(toBeRemoved);
 		populateAccounts();
 		myUser.writeAccounts();
 	}
 
-	/** 
-	 * @title	logOut Method
-	 * @return	1 when logged out.
-	 * @desc	Basically closes the frame.
-	 */
+	//closes frame, restarts login frame
 	public int logOut()
 	{
 		JOptionPane.showMessageDialog(null, "Thank you for using JackPass! Hope to see you soon.");
 		mainFrame.dispose();
+		new LoginScreen();
 		return 1;
 	}
 }

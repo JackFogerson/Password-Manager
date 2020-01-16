@@ -1,8 +1,8 @@
 # JackPass - Password Manager App
 
 JackPass is a password manager tool that encrpyts your passwords and stores them locally. <br />
-Current features: Stylish UI, simple encryption, basic functionality. <br />
-Features to be created: Different UI design, fix error messages in console
+Current features: Stylish UI, simple encryption. <br />
+Features to be created: Different UI design, complete functionality, fix error messages in console
 
 ## Installation
 
