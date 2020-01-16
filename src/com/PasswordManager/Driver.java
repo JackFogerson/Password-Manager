@@ -1,7 +1,7 @@
 package com.PasswordManager;
 
 /**
- * @title	Driver Class
+ * @title	Driver Class.java
  * @author	Jack Fogerson, Jack Gisel, Nick Fulton
  * @desc	Main method used to launch JackPass login screen
  */

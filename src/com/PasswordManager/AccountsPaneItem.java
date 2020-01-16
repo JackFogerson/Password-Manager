@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @title	AccountsPaneItem
+ * @title	AccountsPaneItem.java
  * @author 	Jack Fogerson, Jack Gisel, Nick Fulton
  * @desc	Displays all accounts.
  */

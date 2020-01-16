@@ -18,26 +18,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * @title	LoginScreen
- * @author 	Nick Fulton, Jack Fogerson, Jack Gisel 
- * @desc	Class handles everything related to logging into PasswordManager. Checks Account Storage to 
- * 			ensure JackPass is secure.
+ * @title	LoginScreen.java
+ * @author 	Jack Fogerson, Jack Gisel, Nick Fulton
+ * @desc	Class handles  logging into PasswordManager. Checks Account Storage to ensure JackPass is secure.
  */
 
-public class LoginScreen 
-{
-	// Create some of those needed variables.
+public class LoginScreen {
+	//Initialize variables.
 	JFrame loginFrame;
 	ArrayList<User> users;
 	User myUser;
 	boolean loggedIn;
 	
-	/**
-	 * @title	LoginScreen constructor
-	 * @desc	Defaults variables as null/false, gets user database, and launches login app
-	 */
-	public LoginScreen()
-	{
+	
+	//LoginScreen constructor
+	//Defaults variables as null/false, gets user database, and launches login frame
+	public LoginScreen(){
 		loginFrame = null;
 		myUser = null;
 		loggedIn = false;
@@ -45,19 +41,14 @@ public class LoginScreen
 		launchLoginFrame();
 	}
 	
-	/**
-	 * @title	pullUsers method
-	 * @desc	Use this method to pull the users from file and to apply them to the arraylist full of
-	 * 			users.
-	 */
+	//Use this method to pull the users from file and to apply them to the arraylist full of users
 	@SuppressWarnings("unchecked")
-	private void pullUsers()
-	{
-		// In case there are no pre-existing users, make a new ArrayList.
+	private void pullUsers(){
+		
+		//If no pre-existing users, make a new ArrayList.
 		users = new ArrayList<User>();
 		
-		try
-		{
+		try{
 			// First make the file.
 			File probeFile = new File("data/Users.jpss");
 			// And create the file if it doesn't already exist.
@@ -74,37 +65,28 @@ public class LoginScreen
 			ois.close();
 			fis.close();
 		}
-		//block of code to catch errors
-		//gives error message if the file doesn't exist
-		catch(FileNotFoundException e)
-		{
+		
+		//Code to catch errors
+		catch(FileNotFoundException e){
 			System.out.println("File not found.");
 		}
 		//gives error message if I/O operation fails or is interrupted
-		catch(IOException e)
-		{
+		catch(IOException e){
 			System.out.println("Error initalizing stream.");
 		}
 		//prints stack trace if the class called is not found
-		catch(ClassNotFoundException e)
-		{
+		catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * @title	writeUsers Method
-	 * @desc	Use this method to write all the users back to file. This should only be called in the create
-	 * 			account phase to prevent any bugs and corrupted data.
-	 */
-	public void writeUsers()
-	{
-		try
-		{
+	//Use this method to write all the users back to file. This should only be called in the create account phase to
+	//prevent any bugs and corrupted data
+	public void writeUsers(){
+		try{
 			// First make the file.
 			File probeFile = new File("data/Users.jpss");
-			// Then create the file on the system if it doesn't exist, but it should by this point.
-			//failsafe file creation to prevent errors
+			//Create the file on the system if it doesn't exist
 			probeFile.createNewFile();
 			
 			// Create the streams.
@@ -118,28 +100,22 @@ public class LoginScreen
 			oos.close();
 			fos.close();
 		}
+		
 		//block of code to catch errors
-		//gives error message if the file doesn't exist
-		catch(FileNotFoundException e)
-		{
+		catch(FileNotFoundException e){
 			System.out.println("File not found.");
 		}
 		//gives error message if I/O operation fails or is interrupted
-		catch(IOException e)
-		{
+		catch(IOException e){
 			System.out.println("Error initalizing stream.");
 		}
 		
-		// We are now logged in.
+		//Logs in
 		loggedIn = true;
 	}
 	
-	/**
-	 * @title	launchLogInFrame
-	 * @desc	This method will launch the frame that handles logging in and creating an account with JackPass.
-	 */
-	private void launchLoginFrame()
-	{
+	//Launches the frame that handles logging in and creating an account.
+	private void launchLoginFrame(){
 		// Make the JFrame, and then make it a GridLayout.
 		loginFrame = new JFrame("JackPass - Login or Create Account");
 		loginFrame.setLayout(new GridLayout(3, 1));
@@ -160,12 +136,12 @@ public class LoginScreen
 		loginFrame.add(createAccountButton);
 		loginFrame.add(logInButton);
 		
-		// Make an action listener for both create account and log in, which will be dealt with in other methods.
+		//Make an action listener for both create account and log in
 		//Gets user input and sends that text to those methods
 		createAccountButton.addActionListener(event -> createAccount(usernameBox.getText(), passwordBox.getText()));
 		logInButton.addActionListener(event -> logIn(usernameBox.getText(), passwordBox.getText()));
 		
-		// Handle the rest of the frame.
+		// Handle rest of the frame.
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginFrame.setSize(200, 100);
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -175,23 +151,27 @@ public class LoginScreen
 		loginFrame.setVisible(true);
 	}
 	
-	/**
-	 * @title	createAccount Method
-	 * @param 	u - The username variable.
-	 * @param	p - The password variable.
-	 * @desc	Creates an account with the given variables if given username does not already exist.
-	 */
-	private void createAccount(String u, String p)
-	{
-		// Create a new user using the username and password provided.
+	//Creates an account with the given variables if given username does not already exist
+	private void createAccount(String u, String p) {
+		//Create a user instance using the username and password provided.
 		User newUser = new User(u, p);
 		
-		//Method if the ArrayList already has a user with that username.
-		if(users.contains(newUser))
-		{
-			// Display that this option is taken.
-			JOptionPane.showMessageDialog(null, "Sorry, that username is taken. Please try again.");
+		//if no username
+		if(u == null) {
+			JOptionPane.showMessageDialog(null, "Enter a username to continue");
 		}
+		
+		//Method if the ArrayList already has a user with that username.
+		else if(users.contains(newUser)){
+			// Display that this option is taken.
+			JOptionPane.showMessageDialog(null, "Sorry, that username is taken.");
+		}
+		
+		//if no password
+		else if(p == null) {
+			JOptionPane.showMessageDialog(null, "Enter a password to continue");
+		}
+		
 		//else, continue creating account
 		else
 		{
@@ -206,46 +186,49 @@ public class LoginScreen
 		}
 	}
 	
-	/**
-	 * @title	logIn Method
-	 * @param	u - The username variable.
-	 * @param	p - The password variable.
-	 * @desc	Attempts to log into JackPass using the supplied username and password.
-	 */
-	public void logIn(String u, String p)
-	{
-		// Create a user using the username and password provided.
+	//Attempts to log into JackPass using the supplied username and password
+	public void logIn(String u, String p){
+		// Creates a user instance using the username and password provided.
 		User newUser = new User(u, p);
 		
-		// If there is a user with the same username continue on.
-		if(users.contains(newUser))
-		{
+		
+		//if no username entered
+		if(u == null) {
+			JOptionPane.showMessageDialog(null, "Enter a username to continue");
+		}
+		
+		// If the username is in the User database
+		else if(users.contains(newUser)) {
+			
 			// If the passwords match.
-			if(users.get(users.indexOf(newUser)).getPassword().equals(p))
-			{
+			if(users.get(users.indexOf(newUser)).getPassword().equals(p)){
 				// Make the new account the active user and display log-in message.
 				myUser = newUser;
 				loggedIn = true;
-
 				JOptionPane.showMessageDialog(null, "You have successfully logged in, " + newUser.getUsername() +". Enjoy JackPass!");
 				loggedIn();
 			}
-			// No password = no entry.
-			else
-			{
-				//if correct username, wrong or null password
+			
+			//No password = no entry.
+			else if(p == null){
+				//if correct username, null password
+				JOptionPane.showMessageDialog(null, "Enter password");
+			}
+			//Wrong password = no entry.
+			else {
+				//if correct username, wrong password
 				JOptionPane.showMessageDialog(null, "Sorry, that is the incorrect password. Please try again!");
 			}
 		}
+		
 		// If database doesn't contain username.
-		else
-		{
+		else {
 			JOptionPane.showMessageDialog(null, "We do not have an account with that Username. Please create an account or change the Username");
 		}
 	}
 
-	// Move to Manager once logged in
-	private void loggedIn() {
+	//Removes Login Frame, Moves to main page
+	private void loggedIn(){
 		loginFrame.dispose();
 		PasswordManager pm = new PasswordManager(myUser);
 		pm.launch();
