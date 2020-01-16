@@ -1,6 +1,5 @@
 package com.PasswordManager;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,38 +12,33 @@ import java.util.ArrayList;
 
 /**
  * @title	User Class
- * @author	Nick Fulton, Jack Fogerson, Jack Gisel
+ * @author	Jack Fogerson, Jack Gisel, Nick Fulton
  * @desc	Class to handle all JackPass user info
  */
-public class User implements Comparable<User> , Serializable
-{
-	// Create those needed variables.
+
+public class User implements Comparable<User> , Serializable {
+	
 	private static final long serialVersionUID = 1L;
+
+	//Initialize variables.
 	String myUsername;
 	String myPassword;
 	ArrayList<Account> accounts;
 	
-	/**
-	 * @title	User Constructor
-	 * @param	username - The username variable.
-	 * @param	password - The password variable.
-	 */
-	public User(String username, String password)
-	{
-		// Set User variables.
+	//User constructor
+	public User(String username, String password){
 		myUsername = username;
 		myPassword = password;
 		checkForAccounts();
 	}
 	
+	//Checks database for account
 	@SuppressWarnings("unchecked")
-	public void checkForAccounts()
-	{
-		// In case there are no preexisting users, make a new ArrayList.
+	public void checkForAccounts(){
+		//If no preexisting users, make a new ArrayList.
 		accounts = new ArrayList<Account>();
 		
-		try
-		{
+		try {
 			// First make the file.
 			File probeFile = new File("data/" + myUsername + ".jpss");
 			// And create the file if it doesn't already exist.
@@ -61,32 +55,28 @@ public class User implements Comparable<User> , Serializable
 			ois.close();
 			fis.close();
 		}
+		
 		//block of code to catch errors
-		//gives error message if the file doesn't exist
-		catch(FileNotFoundException e)
-		{
+		catch(FileNotFoundException e){
 			System.out.println("File not found.");
 		}
+		
 		//gives error message if I/O operation fails or is interrupted
-		catch(IOException e)
-		{
+		catch(IOException e){
 			e.printStackTrace();
 		}
+		
 		//prints stack trace if the class called is not found
-		catch(ClassNotFoundException e)
-		{
+		catch(ClassNotFoundException e){
 			e.printStackTrace();
 		}		
 	}
 	
-	public void writeAccounts()
-	{
-		try
-		{
+	public void writeAccounts(){
+		try{
 			// First make the file.
 			File probeFile = new File("data/" + myUsername + ".jpss");
-			// Then create the file on the system if it doesn't exist, but it should by this point.
-			//failsafe file creation to prevent errors
+			// Then create the file on the system if it doesn't exist
 			probeFile.createNewFile();
 			
 			// Create the streams.
@@ -100,92 +90,63 @@ public class User implements Comparable<User> , Serializable
 			oos.close();
 			fos.close();
 		}
+		
 		//block of code to catch errors
-		//gives error message if the file doesn't exist
-		catch(FileNotFoundException e)
-		{
+		catch(FileNotFoundException e){
 			System.out.println("File not found.");
 		}
+		
 		//gives error message if I/O operation fails or is interrupted
-		catch(IOException e)
-		{
+		catch(IOException e){
 			System.out.println("Error initalizing stream.");
 		}
 	}
 	
-	/**
-	 * @title	addAccount Method
-	 * @desc	Adds the given account to the user's list of accounts.
-	 * @param	account - The account to be added to the list of accounts.
-	 */
-	public void addAccount(Account a)
-	{
+	//Adds the given account to the user's list of accounts
+	public void addAccount(Account a){
 		accounts.add(a);
 	}
 
-	public void removeAccount(Account a)
-	{
+	//Removes the given account from the user's list of accounts
+	public void removeAccount(Account a){
 		accounts.remove(a);
 	}
 	
-	/**
-	 * @title	getAccounts Method
-	 * @desc	Returns the arraylist of all accounts associated with the user.
-	 */
-	public ArrayList<Account> getAccounts()
-	{
+	//Returns the arraylist of all accounts associated with the user
+	public ArrayList<Account> getAccounts(){
 		return accounts;
 	}
 
-	/**
-	 * @title	compareTo Method
-	 * @desc	Returns 0 if the usernames are the same, 1 if not.
-	 */
-	public int compareTo(User u) 
-	{
-		if(u.getUsername().equals(this.getUsername()))
+	//Returns 0 if the usernames are the same, 1 if not
+	public int compareTo(User u){
+		if(u.getUsername().equals(this.getUsername())) {
 			return 0;
-		return 1;
+		}
+		else {
+			return 1;
+		}
 	}
 	
-	/**
-	 * @title	equals Method
-	 * @desc	Calls the modified compareTo and if that returns 0, return true. If not return false.
-	 */
+	//Calls the modified compareTo and if that returns 0, return true. If not return false
 	@Override
-	public boolean equals(Object u)
-	{
+	public boolean equals(Object u){
 		User myU = (User) u;
-		if(this.compareTo(myU) == 0)
+		if(this.compareTo(myU) == 0) {
 			return true;
+		}
 		return false;
 	}
 	
-	/**
-	 * @title	getUsername
-	 * @return	Username
-	 */
-	public String getUsername()
-	{
+	//Getter Methods
+	public String getUsername(){
 		return myUsername;
 	}
-	
-	/**
-	 * @title	getPassword
-	 * @return	User's password
-	 */
-	public String getPassword()
-	{
+
+	public String getPassword(){
 		return myPassword;
 	}
 	
-	/**
-	 * @title	toString
-	 * @return	User's username
-	 */
-	@Override
-	public String toString()
-	{
+	public String toString(){
 		return myUsername;
 	}
 }
