@@ -279,10 +279,10 @@ public class PasswordManager
 	}
 	
 	public void showAccount(Account a) throws Exception {
-		accountInfo.setAccountName(a.getName());
+		accountInfo.setSiteName(a.getWebsiteName());
 		accountInfo.setUserName(a.getUsername());
 		accountInfo.setPassword(a.getPassword());
-		accountInfo.setURL(a.getURL());
+		accountInfo.setURL(a.getWebsiteURL());
 		accountInfo.setAdditionalDetails(a.getAdditionalDetails());
 	}
 	

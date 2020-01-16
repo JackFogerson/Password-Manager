@@ -42,23 +42,17 @@ public class User implements Comparable<User> , Serializable {
 		try {
 			// First make the file.
 			File probeFile = new File("data/" + myUsername + ".jpss");
+
 			// And create the file if it doesn't already exist.
 			probeFile.createNewFile();
-			
+
 			// Then create the streams.
 			FileInputStream fis = new FileInputStream(probeFile);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			Object o = ois.readObject();
-			while (o != null) {
-			   try{
-				   accounts = (ArrayList<Account>) ois.readObject();
-			   } catch(EOFException ex){
-			   }
-			}
 			// Pull the ArrayList from file.
-			
-			
+			accounts = (ArrayList<Account>) ois.readObject();
+
 			// Close the streams.
 			ois.close();
 			fis.close();
